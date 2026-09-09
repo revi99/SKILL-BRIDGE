@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-lightest: #E3FDFD;
+  --color-brand-light: #CBF1F5;
+  --color-brand-mid: #A6E3E9;
+  --color-brand-primary: #71C9CE;
+  --color-brand-dark: #081418;
+  --color-brand-surface: #0e242b;
+  --color-brand-card: #122d36;
+  --color-brand-border: #1a424e;
+}
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Custom Color Palette */
+    --brand-lightest: #E3FDFD;
+    --brand-light: #CBF1F5;
+    --brand-mid: #A6E3E9;
+    --brand-primary: #71C9CE;
+    --brand-dark: #081418;
+    --brand-surface: #0e242b;
+    --brand-surface-card: #122d36;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #081418;
+    color: #E3FDFD;
+    overflow-x: hidden;
+  }
+
+  /* Custom subtle scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #081418;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #173843;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #71C9CE;
+  }
+}
+
+/* Glassmorphism surfaces styled with the new palette */
+.glass-panel {
+  background: rgba(14, 36, 43, 0.78);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(166, 227, 233, 0.14);
+}
+
+.glass-panel-hover {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-panel-hover:hover {
+  background: rgba(18, 45, 54, 0.92);
+  border-color: rgba(113, 201, 206, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 35px -10px rgba(113, 201, 206, 0.22);
+}
+
+/* Custom Palette Utility Gradients & Buttons */
+.gradient-text {
+  background: linear-gradient(135deg, #E3FDFD 0%, #A6E3E9 50%, #71C9CE 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-emerald {
+  background: linear-gradient(135deg, #CBF1F5 0%, #A6E3E9 60%, #71C9CE 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glow-brand {
+  box-shadow: 0 0 25px -4px rgba(113, 201, 206, 0.4);
+}
+
+.btn-brand-primary {
+  background: linear-gradient(135deg, #71C9CE 0%, #A6E3E9 100%);
+  color: #061519;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+.btn-brand-primary:hover {
+  background: linear-gradient(135deg, #A6E3E9 0%, #CBF1F5 100%);
+  box-shadow: 0 0 20px rgba(113, 201, 206, 0.45);
+  transform: scale(1.02);
+}
+
+.btn-brand-secondary {
+  background: rgba(113, 201, 206, 0.12);
+  color: #CBF1F5;
+  border: 1px solid rgba(166, 227, 233, 0.3);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+.btn-brand-secondary:hover {
+  background: rgba(113, 201, 206, 0.22);
+  border-color: rgba(113, 201, 206, 0.6);
+  color: #E3FDFD;
+}
+
+.badge-brand {
+  background: rgba(113, 201, 206, 0.15);
+  color: #CBF1F5;
+  border: 1px solid rgba(166, 227, 233, 0.35);
+}
