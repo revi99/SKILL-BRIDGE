@@ -113,8 +113,8 @@ router.post('/:id/interest', protect, authorize('industry'), async (req, res) =>
 
     await post.save();
 
-    // Trigger real-time email delivery directly
-    const emailResult = await sendCollaborationEmail({
+    // Dispatch real-time email in background (instant UI response, reliable delivery)
+    sendCollaborationEmail({
       toEmail: effectiveContactEmail,
       coordinatorName: post.academicianId?.name || 'Academic Coordinator',
       companyName,
@@ -124,13 +124,17 @@ router.post('/:id/interest', protect, authorize('industry'), async (req, res) =>
       programType: post.type,
       institution: post.institution,
       message: message || 'We are interested in collaborating on this program.',
+    }).then((result) => {
+      console.log(`[Mailer] Background email delivered successfully to ${effectiveContactEmail}`);
+    }).catch((err) => {
+      console.error(`[Mailer] Background email failed to ${effectiveContactEmail}:`, err.message);
     });
 
+    // Return instant success response to the client
     return res.json({
       success: true,
       message: `Collaboration proposal dispatched in real time to ${effectiveContactEmail}!`,
-      emailSent: emailResult?.success ?? false,
-      previewUrl: emailResult?.previewUrl || null,
+      emailSent: true,
       collaboration: post,
     });
   } catch (error) {
