@@ -1,11 +1,13 @@
 const nodemailer = require('nodemailer');
 
-// Initialize Transporter (uses environment variables if provided, otherwise creates a test/ethereal or standard SMTP transport)
-let transporter;
+// Initialize Transporter with pooled connection and fast timeouts
+let transporter = null;
 
-const createTransporter = async () => {
+const getTransporter = () => {
+  if (transporter) return transporter;
+
   if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
-    return nodemailer.createTransport({
+    transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT) || 587,
       secure: process.env.SMTP_SECURE === 'true',
@@ -13,7 +15,13 @@ const createTransporter = async () => {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
+      pool: true,
+      maxConnections: 5,
+      connectionTimeout: 4000,
+      greetingTimeout: 4000,
+      socketTimeout: 6000,
     });
+    return transporter;
   }
 
   // If using standard Gmail configuration
@@ -21,41 +29,32 @@ const createTransporter = async () => {
     const cleanUser = process.env.EMAIL_USER.trim();
     const cleanPass = process.env.EMAIL_PASS.replace(/\s+/g, '').trim();
     console.log(`[Mailer] Initializing live Gmail SMTP transport with user: ${cleanUser}`);
-    return nodemailer.createTransport({
+    transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: cleanUser,
         pass: cleanPass,
       },
+      pool: true,
+      maxConnections: 5,
+      connectionTimeout: 4000,
+      greetingTimeout: 4000,
+      socketTimeout: 6000,
     });
+    return transporter;
   }
 
-  // In development, create an Ethereal test account or fallback direct transporter
-  try {
-    const testAccount = await nodemailer.createTestAccount();
-    console.log('[Mailer] Using Ethereal test account:', testAccount.user);
-    return nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
-      port: 587,
-      secure: false,
-      auth: {
-        user: testAccount.user,
-        pass: testAccount.pass,
-      },
-    });
-  } catch (err) {
-    console.warn('[Mailer] Could not create Ethereal account, falling back to JSON mock transport:', err.message);
-    return nodemailer.createTransport({
-      jsonTransport: true,
-    });
-  }
+  // Fallback to fast JSON transport if no credentials are provided to prevent server lag
+  console.log('[Mailer] No live SMTP credentials provided in environment, using fast JSON transport.');
+  transporter = nodemailer.createTransport({
+    jsonTransport: true,
+  });
+  return transporter;
 };
 
 const sendCollaborationEmail = async ({ toEmail, coordinatorName, companyName, recruiterName, contactEmail, programTitle, programType, institution, message }) => {
   try {
-    if (!transporter) {
-      transporter = await createTransporter();
-    }
+    const activeTransporter = getTransporter();
 
     const htmlContent = `
       <!DOCTYPE html>
@@ -145,8 +144,8 @@ const sendCollaborationEmail = async ({ toEmail, coordinatorName, companyName, r
       html: htmlContent,
     };
 
-    const info = await transporter.sendMail(mailOptions);
-    console.log(`[Mailer] Real-time collaboration email sent to ${toEmail}: messageId=${info.messageId}`);
+    const info = await activeTransporter.sendMail(mailOptions);
+    console.log(`[Mailer] Real-time collaboration email sent to ${toEmail}: messageId=${info?.messageId}`);
     
     // If ethereal, provide preview URL in logs
     if (nodemailer.getTestMessageUrl && info) {
