@@ -4,50 +4,35 @@ const dns = require('dns');
 // Initialize Transporter with pooled connection and fast timeouts
 let transporter = null;
 
-const getTransporter = () => {
+const resolveIPv4 = async (hostname) => {
+  try {
+    const res = await dns.promises.lookup(hostname, { family: 4 });
+    return res.address;
+  } catch (e) {
+    return '142.250.190.108'; // Reliable Google Gmail SMTP IPv4 fallback
+  }
+};
+
+const getTransporter = async () => {
   if (transporter) return transporter;
 
-  if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
-    transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT) || 587,
-      secure: process.env.SMTP_SECURE === 'true',
-      lookup: (hostname, options, callback) => {
-        dns.lookup(hostname, { family: 4 }, callback);
-      },
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-      pool: true,
-      maxConnections: 5,
-      connectionTimeout: 4000,
-      greetingTimeout: 4000,
-      socketTimeout: 6000,
-    });
-    return transporter;
-  }
-
-  // Use environment credentials with hardcoded verified defaults
   const user = (process.env.EMAIL_USER || 'ravi11teja67@gmail.com').trim();
   const pass = (process.env.EMAIL_PASS || 'xwkidehukffiynfw').replace(/\s+/g, '').trim();
 
   if (user && pass) {
-    console.log(`[Mailer] Initializing live Gmail SMTP transport on port 587 (strict IPv4) with user: ${user}`);
+    const smtpIp = await resolveIPv4('smtp.gmail.com');
+    console.log(`[Mailer] Initializing live Gmail SMTP transport on IPv4 ${smtpIp}:587 with user: ${user}`);
     transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
+      host: smtpIp, // Passing literal IPv4 string prevents any IPv6 socket attempt
       port: 587,
       secure: false, // Port 587 uses STARTTLS
       requireTLS: true,
-      lookup: (hostname, options, callback) => {
-        dns.lookup(hostname, { family: 4 }, callback);
-      },
       auth: {
         user: user,
         pass: pass,
       },
       tls: {
-        servername: 'smtp.gmail.com',
+        servername: 'smtp.gmail.com', // Keeps SSL certificate validation matching smtp.gmail.com
       },
       connectionTimeout: 10000,
       greetingTimeout: 10000,
@@ -66,7 +51,7 @@ const getTransporter = () => {
 
 const sendCollaborationEmail = async ({ toEmail, coordinatorName, companyName, recruiterName, contactEmail, programTitle, programType, institution, message }) => {
   try {
-    const activeTransporter = getTransporter();
+    const activeTransporter = await getTransporter();
 
     const htmlContent = `
       <!DOCTYPE html>
