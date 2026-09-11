@@ -127,14 +127,19 @@ router.post('/:id/interest', protect, authorize('industry'), async (req, res) =>
     });
 
     if (!emailResult.success) {
-      console.error(`[Mailer] Warning: SMTP delivery failed to ${effectiveContactEmail}:`, emailResult.error);
+      console.error(`[Mailer] Error: SMTP delivery failed to ${effectiveContactEmail}:`, emailResult.error);
+      return res.status(500).json({
+        success: false,
+        message: `Failed to deliver real-time email: ${emailResult.error || 'SMTP delivery rejected by mail server'}`,
+      });
     }
 
-    // Return response to the client
+    // Return verified success response to the client
     return res.json({
       success: true,
       message: `Collaboration proposal dispatched in real time to ${effectiveContactEmail}!`,
-      emailSent: emailResult.success,
+      emailSent: true,
+      previewUrl: emailResult.previewUrl || null,
       collaboration: post,
     });
   } catch (error) {
