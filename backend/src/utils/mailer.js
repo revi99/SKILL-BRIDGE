@@ -30,16 +30,13 @@ const getTransporter = () => {
     const cleanPass = process.env.EMAIL_PASS.replace(/\s+/g, '').trim();
     console.log(`[Mailer] Initializing live Gmail SMTP transport with user: ${cleanUser}`);
     transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
       auth: {
         user: cleanUser,
         pass: cleanPass,
       },
-      pool: true,
-      maxConnections: 5,
-      connectionTimeout: 4000,
-      greetingTimeout: 4000,
-      socketTimeout: 6000,
     });
     return transporter;
   }
