@@ -14,12 +14,13 @@ const LiveProject = require('../models/LiveProject');
 const Integration = require('../models/Integration');
 const { calculateSkillMatch } = require('../utils/matchEngine');
 
-const seedDB = async () => {
+const seedDB = async (shouldExit = true) => {
   try {
-    const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/collab_portal';
-    await mongoose.connect(mongoUri);
-    console.log('[Seed] Connected to MongoDB at', mongoUri);
-
+    if (mongoose.connection.readyState !== 1) {
+      const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/collab_portal';
+      await mongoose.connect(mongoUri);
+      console.log('[Seed] Connected to MongoDB at', mongoUri);
+    }
     // Clear existing collections
     await User.deleteMany({});
     await SkillProfile.deleteMany({});
@@ -546,11 +547,30 @@ const seedDB = async () => {
     ]);
 
     console.log('[Seed] Database seeding completed successfully with all Enterprise Modules! ✨');
-    process.exit(0);
+    if (shouldExit) process.exit(0);
+    return { success: true, message: 'Database seeded successfully' };
   } catch (error) {
     console.error('[Seed] Seeding failed with error:', error);
-    process.exit(1);
+    if (shouldExit) process.exit(1);
+    throw error;
   }
 };
 
-seedDB();
+const autoSeedIfEmpty = async () => {
+  try {
+    const userCount = await User.countDocuments();
+    if (userCount === 0) {
+      console.log('[AutoSeed] Empty database detected. Automatically seeding demo dataset...');
+      await seedDB(false);
+      console.log('[AutoSeed] Auto-seed finished! All demo accounts are active.');
+    }
+  } catch (err) {
+    console.error('[AutoSeed] Error checking or seeding initial dataset:', err.message);
+  }
+};
+
+if (require.main === module) {
+  seedDB(true);
+}
+
+module.exports = { seedDB, autoSeedIfEmpty };

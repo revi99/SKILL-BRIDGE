@@ -7,6 +7,9 @@ const connectDB = async () => {
       serverSelectionTimeoutMS: 5000,
     });
     console.log(`[MongoDB] Connected successfully to ${conn.connection.host}/${conn.connection.name}`);
+    // Auto-seed initial demo dataset if MongoDB database has 0 users
+    const { autoSeedIfEmpty } = require('../scripts/seed');
+    await autoSeedIfEmpty();
   } catch (error) {
     console.error(`[MongoDB] Connection error: ${error.message}`);
     if (process.env.NODE_ENV === 'production') {

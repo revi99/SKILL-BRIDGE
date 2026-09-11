@@ -52,6 +52,17 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Database seed endpoint (accessible on cloud to re-populate demo dataset)
+app.get('/api/seed', async (req, res) => {
+  try {
+    const { seedDB } = require('./scripts/seed');
+    const result = await seedDB(false);
+    res.json({ success: true, message: 'Database successfully seeded with demo accounts & data!', result });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // Serve frontend production build if available
 const frontendDistPath = path.join(__dirname, '../../frontend/dist');
 if (fs.existsSync(frontendDistPath)) {
