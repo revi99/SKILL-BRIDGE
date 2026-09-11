@@ -24,18 +24,19 @@ const getTransporter = () => {
     return transporter;
   }
 
-  // If using standard Gmail configuration
-  if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-    const cleanUser = process.env.EMAIL_USER.trim();
-    const cleanPass = process.env.EMAIL_PASS.replace(/\s+/g, '').trim();
-    console.log(`[Mailer] Initializing live Gmail SMTP transport with user: ${cleanUser}`);
+  // Use environment credentials with hardcoded verified defaults
+  const user = (process.env.EMAIL_USER || 'ravi11teja67@gmail.com').trim();
+  const pass = (process.env.EMAIL_PASS || 'xwkidehukffiynfw').replace(/\s+/g, '').trim();
+
+  if (user && pass) {
+    console.log(`[Mailer] Initializing live Gmail SMTP transport with user: ${user}`);
     transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
       secure: true,
       auth: {
-        user: cleanUser,
-        pass: cleanPass,
+        user: user,
+        pass: pass,
       },
     });
     return transporter;
