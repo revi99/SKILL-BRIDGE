@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const dns = require('dns');
 
 // Initialize Transporter with pooled connection and fast timeouts
 let transporter = null;
@@ -11,6 +12,9 @@ const getTransporter = () => {
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT) || 587,
       secure: process.env.SMTP_SECURE === 'true',
+      lookup: (hostname, options, callback) => {
+        dns.lookup(hostname, { family: 4 }, callback);
+      },
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
@@ -29,16 +33,21 @@ const getTransporter = () => {
   const pass = (process.env.EMAIL_PASS || 'xwkidehukffiynfw').replace(/\s+/g, '').trim();
 
   if (user && pass) {
-    console.log(`[Mailer] Initializing live Gmail SMTP transport on port 587 (IPv4) with user: ${user}`);
+    console.log(`[Mailer] Initializing live Gmail SMTP transport on port 587 (strict IPv4) with user: ${user}`);
     transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 587,
       secure: false, // Port 587 uses STARTTLS
       requireTLS: true,
-      family: 4, // Force IPv4 to prevent ENETUNREACH on cloud containers
+      lookup: (hostname, options, callback) => {
+        dns.lookup(hostname, { family: 4 }, callback);
+      },
       auth: {
         user: user,
         pass: pass,
+      },
+      tls: {
+        servername: 'smtp.gmail.com',
       },
       connectionTimeout: 10000,
       greetingTimeout: 10000,
