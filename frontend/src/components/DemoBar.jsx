@@ -36,7 +36,9 @@ export default function DemoBar() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
           </span>
-          <Sparkles className="w-3.5 h-3.5 text-violet-400" />
+          <div className="bg-white/95 px-1.5 py-0.5 rounded-md flex items-center shadow-xs">
+            <img src="/skillbridge-logo.png" alt="SkillBridge" className="h-3.5 w-auto object-contain" />
+          </div>
           <span className="font-bold text-white tracking-wide">SkillBridge Live Environment</span>
           
           {isAuthenticated && user && (

@@ -101,21 +101,15 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Brand Logo */}
           <div className="flex items-center gap-4">
-            <Link to="/" className="flex items-center gap-2.5 group shrink-0">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-violet-600 via-indigo-600 to-purple-500 flex items-center justify-center shadow-md shadow-violet-500/20 group-hover:scale-105 transition-transform text-white">
-                <Sparkles className="w-5 h-5 text-white" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-lg font-extrabold tracking-tight text-slate-900 flex items-center gap-1">
-                  Skill<span className="text-violet-600">Bridge</span>
-                  <span className="text-[10px] uppercase tracking-widest font-mono bg-violet-100 text-violet-700 px-1.5 py-0.5 rounded font-bold border border-violet-200 hidden sm:inline">
-                    PRO
-                  </span>
-                </span>
-                <span className="text-[10px] text-slate-500 -mt-1 hidden lg:block font-medium">
-                  Academia–Industry Platform
-                </span>
-              </div>
+            <Link to="/" className="flex items-center gap-2 group shrink-0">
+              <img
+                src="/skillbridge-logo.png"
+                alt="SkillBridge"
+                className="h-8 sm:h-9 w-auto object-contain group-hover:scale-105 transition-transform"
+              />
+              <span className="text-[10px] uppercase tracking-widest font-mono bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded font-bold border border-blue-200 hidden sm:inline">
+                PRO
+              </span>
             </Link>
 
             {/* Desktop Navigation Links */}

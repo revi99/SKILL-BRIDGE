@@ -8,14 +8,13 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div className="md:col-span-2">
-            <div className="flex items-center gap-2.5 mb-3">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-violet-600 to-indigo-600 flex items-center justify-center text-white font-bold shadow-xs">
-                <Sparkles className="w-4 h-4 text-white" />
-              </div>
-              <span className="text-lg font-extrabold text-slate-900 tracking-tight">
-                Skill<span className="text-violet-600">Bridge</span>
-              </span>
-              <span className="text-xs bg-violet-50 text-violet-700 font-semibold font-mono px-2 py-0.5 rounded-full border border-violet-200">
+            <div className="flex items-center gap-3 mb-3">
+              <img
+                src="/skillbridge-logo.png"
+                alt="SkillBridge Logo"
+                className="h-8 w-auto object-contain"
+              />
+              <span className="text-xs bg-blue-50 text-blue-700 font-semibold font-mono px-2 py-0.5 rounded-full border border-blue-200">
                 Enterprise Production
               </span>
             </div>

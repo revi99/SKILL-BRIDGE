@@ -51,9 +51,11 @@ export default function LoginPage() {
       <div className="max-w-md w-full space-y-6">
         {/* Header */}
         <div className="text-center">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-violet-50 text-violet-600 border border-violet-200 mb-4 shadow-xs">
-            <Sparkles className="w-6 h-6" />
-          </div>
+          <img
+            src="/skillbridge-logo.png"
+            alt="SkillBridge Logo"
+            className="h-10 w-auto object-contain mx-auto mb-3"
+          />
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Welcome Back</h2>
           <p className="mt-2 text-xs sm:text-sm text-slate-600">
             Sign in to access your customized portal or use a 1-click demo account.

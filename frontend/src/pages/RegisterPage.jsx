@@ -59,9 +59,11 @@ export default function RegisterPage() {
     <div className="min-h-[85vh] flex items-center justify-center px-4 py-12 bg-slate-50">
       <div className="max-w-lg w-full space-y-6">
         <div className="text-center">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-violet-50 text-violet-600 border border-violet-200 mb-4 shadow-xs">
-            <Sparkles className="w-6 h-6" />
-          </div>
+          <img
+            src="/skillbridge-logo.png"
+            alt="SkillBridge Logo"
+            className="h-10 w-auto object-contain mx-auto mb-3"
+          />
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Create Your Account</h2>
           <p className="mt-2 text-xs sm:text-sm text-slate-600">
             Join the national academia-industry collaboration talent network.
