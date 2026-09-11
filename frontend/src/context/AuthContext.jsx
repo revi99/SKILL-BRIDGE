@@ -78,7 +78,6 @@ export const AuthProvider = ({ children }) => {
     let email = 'student@demo.com';
     if (role === 'industry') email = 'industry@demo.com';
     if (role === 'academician') email = 'academician@demo.com';
-    if (role === 'institution') email = 'institution@demo.com';
 
     return await login(email, 'password123');
   };

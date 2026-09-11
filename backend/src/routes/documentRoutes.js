@@ -24,7 +24,7 @@ router.get('/my', protect, async (req, res) => {
 // @access  Private
 router.post('/upload', protect, async (req, res) => {
   try {
-    const { title, type, issuer, credentialId, tags, fileName, fileSize } = req.body;
+    const { title, type, issuer, credentialId, tags, fileName, fileSize, fileUrl } = req.body;
 
     if (!title || !type) {
       return res.status(400).json({ message: 'Title and document type are required' });
@@ -44,7 +44,7 @@ router.post('/upload', protect, async (req, res) => {
       type,
       fileName: fileName || `${title.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`,
       fileSize: fileSize || '1.4 MB',
-      fileUrl: `https://storage.skillbridge.edu/docs/${req.user._id}/${Date.now()}.pdf`,
+      fileUrl: fileUrl || `https://storage.skillbridge.edu/docs/${req.user._id}/${Date.now()}.pdf`,
       issuer: issuer || req.user.instituteName || 'Self-Uploaded',
       credentialId: credentialId || `CRED-${Math.floor(100000 + Math.random() * 900000)}`,
       verificationStatus,

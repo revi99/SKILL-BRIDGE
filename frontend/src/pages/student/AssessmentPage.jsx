@@ -107,20 +107,20 @@ export default function AssessmentPage() {
   const progressPercent = questions.length > 0 ? Math.round((answeredCount / questions.length) * 100) : 0;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 space-y-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 space-y-8 bg-slate-50">
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-2">
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#71C9CE]/15 text-[#CBF1F5] border border-[#71C9CE]/30 text-xs font-semibold">
-          <Award className="w-3.5 h-3.5 text-[#71C9CE]" /> Technical Skill Assessment
+        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200 text-xs font-semibold">
+          <Award className="w-3.5 h-3.5 text-violet-600" /> Technical Skill Assessment
         </div>
-        <h1 className="text-3xl font-extrabold text-white">Map Your Industry Competencies</h1>
-        <p className="text-sm text-slate-400">
+        <h1 className="text-3xl font-extrabold text-slate-900">Map Your Industry Competencies</h1>
+        <p className="text-sm text-slate-600">
           Answer multiple-choice and scenario questions to generate your verified skill profile and calculate matching scores with corporate openings.
         </p>
       </div>
 
       {/* Domain Selection Tabs */}
-      <div className="glass-panel p-2 rounded-2xl border border-slate-800">
+      <div className="bg-white p-2 rounded-2xl border border-slate-200 shadow-sm">
         <div className="flex flex-wrap gap-2">
           {domains.map((dom) => (
             <button
@@ -128,8 +128,8 @@ export default function AssessmentPage() {
               onClick={() => setSelectedDomain(dom)}
               className={`flex-1 min-w-[160px] py-2.5 px-3 rounded-xl text-xs font-semibold transition-all ${
                 selectedDomain === dom
-                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                  ? 'btn-brand-primary font-bold shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
               {dom}
@@ -141,33 +141,33 @@ export default function AssessmentPage() {
       {/* Assessment Question Card */}
       {loading ? (
         <div className="min-h-[300px] flex items-center justify-center">
-          <div className="w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-8 h-8 border-4 border-violet-600 border-t-transparent rounded-full animate-spin"></div>
         </div>
       ) : error ? (
-        <div className="p-6 glass-panel rounded-2xl border border-rose-500/30 text-rose-300 text-center space-y-2">
+        <div className="p-6 bg-rose-50 rounded-2xl border border-rose-200 text-rose-700 text-center space-y-2">
           <AlertCircle className="w-8 h-8 mx-auto" />
           <p className="text-sm font-semibold">{error}</p>
         </div>
       ) : currentQ ? (
-        <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-6">
+        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-md space-y-6">
           {/* Progress Header */}
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100">
             <div className="flex items-center gap-3">
-              <span className="text-xs font-bold px-2.5 py-1 rounded-md bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-mono">
+              <span className="text-xs font-bold px-2.5 py-1 rounded-md bg-violet-50 text-violet-700 border border-violet-200 font-mono">
                 Question {currentIndex + 1} of {questions.length}
               </span>
-              <span className="text-xs font-semibold text-slate-400">
-                Skill Tag: <strong className="text-slate-200">{currentQ.skill}</strong>
+              <span className="text-xs font-semibold text-slate-500">
+                Skill Tag: <strong className="text-slate-900">{currentQ.skill}</strong>
               </span>
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="text-xs font-mono text-slate-400">
+              <span className="text-xs font-mono text-slate-600">
                 Answered: {answeredCount}/{questions.length} ({progressPercent}%)
               </span>
-              <div className="w-24 bg-slate-800 h-2 rounded-full overflow-hidden">
+              <div className="w-24 bg-slate-100 h-2 rounded-full overflow-hidden">
                 <div
-                  className="bg-indigo-500 h-full transition-all duration-300"
+                  className="bg-violet-600 h-full transition-all duration-300"
                   style={{ width: `${progressPercent}%` }}
                 ></div>
               </div>
@@ -176,7 +176,7 @@ export default function AssessmentPage() {
 
           {/* Question Text */}
           <div className="py-2">
-            <h2 className="text-lg sm:text-xl font-bold text-white leading-relaxed">
+            <h2 className="text-lg sm:text-xl font-bold text-slate-900 leading-relaxed">
               {currentQ.question}
             </h2>
           </div>
@@ -189,33 +189,33 @@ export default function AssessmentPage() {
                 <button
                   key={idx}
                   onClick={() => handleSelectOption(idx)}
-                  className={`w-full text-left p-4 rounded-xl border transition-all flex items-start gap-3 ${
+                  className={`w-full text-left p-4 rounded-2xl border transition-all flex items-start gap-3.5 ${
                     isSelected
-                      ? 'bg-indigo-600/20 border-indigo-500 text-white shadow-sm shadow-indigo-500/20'
-                      : 'bg-slate-900/80 hover:bg-slate-800/80 border-slate-800 text-slate-300'
+                      ? 'bg-violet-50/70 border-violet-600 text-slate-900 shadow-xs'
+                      : 'bg-white hover:bg-slate-50 border-slate-200 text-slate-700'
                   }`}
                 >
                   <div
-                    className={`w-5 h-5 rounded-full border flex items-center justify-center text-xs shrink-0 mt-0.5 ${
+                    className={`w-6 h-6 rounded-full border flex items-center justify-center text-xs shrink-0 mt-0.5 font-bold ${
                       isSelected
-                        ? 'border-indigo-400 bg-indigo-600 text-white'
-                        : 'border-slate-600 text-slate-400'
+                        ? 'border-violet-600 bg-violet-600 text-white'
+                        : 'border-slate-300 text-slate-500'
                     }`}
                   >
                     {String.fromCharCode(65 + idx)}
                   </div>
-                  <span className="text-sm font-medium">{option}</span>
+                  <span className="text-sm font-medium leading-normal">{option}</span>
                 </button>
               );
             })}
           </div>
 
           {/* Navigation Controls */}
-          <div className="flex items-center justify-between pt-6 border-t border-slate-800">
+          <div className="flex items-center justify-between pt-6 border-t border-slate-100">
             <button
               onClick={handlePrev}
               disabled={currentIndex === 0}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white disabled:opacity-30 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-slate-500 hover:text-slate-900 disabled:opacity-30 transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Previous</span>
@@ -225,7 +225,7 @@ export default function AssessmentPage() {
               {currentIndex < questions.length - 1 ? (
                 <button
                   onClick={handleNext}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-white transition-all"
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-white transition-all"
                 >
                   <span>Next Question</span>
                   <ArrowRight className="w-4 h-4" />
@@ -234,7 +234,7 @@ export default function AssessmentPage() {
                 <button
                   onClick={handleSubmit}
                   disabled={submitting || answeredCount === 0}
-                  className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white shadow-lg shadow-emerald-500/25 transition-all disabled:opacity-50"
+                  className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold btn-brand-primary shadow-md shadow-violet-500/25 transition-all disabled:opacity-50"
                 >
                   {submitting ? (
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>

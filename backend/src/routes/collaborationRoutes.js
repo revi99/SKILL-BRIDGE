@@ -84,37 +84,60 @@ router.post('/', protect, authorize('academician'), async (req, res) => {
   }
 });
 
+const { sendCollaborationEmail } = require('../utils/mailer');
+
 // @route   POST /api/collaborations/:id/interest
 // @desc    Industry partner expresses interest in academic collaboration
 // @access  Private (Industry)
 router.post('/:id/interest', protect, authorize('industry'), async (req, res) => {
   try {
     const { message, contactEmail } = req.body;
-    const post = await CollaborationPost.findById(req.params.id);
+    const post = await CollaborationPost.findById(req.params.id).populate('academicianId', 'name email department instituteName');
 
     if (!post) {
       return res.status(404).json({ message: 'Collaboration proposal not found' });
     }
 
+    const effectiveContactEmail = contactEmail || req.user.email;
+    const companyName = req.user.companyName || req.user.name || 'Industry Partner';
+    const recruiterName = req.user.name || 'Industry Representative';
+
     post.interests.push({
       companyId: req.user._id,
-      companyName: req.user.companyName || req.user.name,
-      recruiterName: req.user.name,
-      contactEmail: contactEmail || req.user.email,
+      companyName,
+      recruiterName,
+      contactEmail: effectiveContactEmail,
       message: message || 'We are interested in collaborating on this program.',
       createdAt: new Date(),
     });
 
     await post.save();
 
+    // Trigger real-time email delivery to the coordinator email provided
+    const emailResult = await sendCollaborationEmail({
+      toEmail: effectiveContactEmail,
+      coordinatorName: post.academicianId?.name || 'Academic Coordinator',
+      companyName,
+      recruiterName,
+      contactEmail: effectiveContactEmail,
+      programTitle: post.title,
+      programType: post.type,
+      institution: post.institution,
+      message: message || 'We are interested in collaborating on this program.',
+    });
+
     return res.json({
       success: true,
-      message: 'Interest submitted to academic coordinator successfully!',
+      message: `Collaboration proposal dispatched in real time to ${effectiveContactEmail}!`,
+      emailSent: emailResult.success,
+      previewUrl: emailResult.previewUrl,
       collaboration: post,
     });
   } catch (error) {
+    console.error('Submit interest error:', error);
     return res.status(500).json({ message: error.message });
   }
 });
 
 module.exports = router;
+

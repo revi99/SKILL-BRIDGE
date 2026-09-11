@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkillBridge - System & User Workflow Diagram</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f1f5f9;
+    }
+    @media print {
+      body { background: white; }
+      .no-print { display: none; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8">
+
+  <!-- Download / Print Toolbar -->
+  <div class="no-print mb-6 flex items-center gap-3">
+    <button onclick="window.print()" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl shadow-md transition-all flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+      Print / Save as PDF / High-Res PNG
+    </button>
+    <span class="text-xs text-slate-500">Exact match to workflow architecture style</span>
+  </div>
+
+  <!-- Main Infographic Container -->
+  <div class="w-full max-w-6xl bg-white rounded-3xl border-2 border-slate-200/90 shadow-2xl p-6 sm:p-10 relative overflow-hidden">
+    
+    <!-- Header Title -->
+    <div class="text-center mb-9">
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">User Workflow</h1>
+      <p class="text-xs sm:text-sm text-slate-500 mt-1 font-medium">SkillBridge: Deterministic Academia-Industry Collaboration & Credential Verification Engine</p>
+    </div>
+
+    <!-- Row 1: 7 Step Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-7 gap-3 relative">
+      
+      <!-- Step 1 -->
+      <div class="bg-sky-50/90 border border-sky-200 rounded-2xl p-4 flex flex-col items-center text-center relative group hover:shadow-md transition-shadow">
+        <div class="w-7 h-7 rounded-full bg-sky-500 text-white text-xs font-bold flex items-center justify-center mb-3 shadow-xs">1</div>
+        <div class="w-11 h-11 rounded-xl bg-sky-100/80 text-sky-700 flex items-center justify-center mb-3">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+        <h2 class="text-xs font-bold text-slate-900 leading-tight">User<br/>Registration</h2>
+        <p class="text-[10px] text-slate-500 mt-1 font-medium">Student / Industry / Faculty</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="bg-emerald-50/90 border border-emerald-200 rounded-2xl p-4 flex flex-col items-center text-center relative group hover:shadow-md transition-shadow">
+        <div class="w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center mb-3 shadow-xs">2</div>
+        <div class="w-11 h-11 rounded-xl bg-emerald-100/80 text-emerald-700 flex items-center justify-center mb-3">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        </div>
+        <h2 class="text-xs font-bold text-slate-900 leading-tight">Skill<br/>Assessment</h2>
+        <p class="text-[10px] text-slate-500 mt-1 font-medium">MCQs & 7-Axis Radar</p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="bg-purple-50/90 border border-purple-200 rounded-2xl p-4 flex flex-col items-center text-center relative group hover:shadow-md transition-shadow">
+        <div class="w-7 h-7 rounded-full bg-purple-600 text-white text-xs font-bold flex items-center justify-center mb-3 shadow-xs">3</div>
+        <div class="w-11 h-11 rounded-xl bg-purple-100/80 text-purple-700 flex items-center justify-center mb-3">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        </div>
+        <h2 class="text-xs font-bold text-slate-900 leading-tight">Credential<br/>Issuance</h2>
+        <p class="text-[10px] text-slate-500 mt-1 font-medium">DigiLocker NAD Hashes</p>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="bg-amber-50/90 border border-amber-200 rounded-2xl p-4 flex flex-col items-center text-center relative group hover:shadow-md transition-shadow">
+        <div class="w-7 h-7 rounded-full bg-amber-500 text-white text-xs font-bold flex items-center justify-center mb-3 shadow-xs">4</div>
+        <div class="w-11 h-11 rounded-xl bg-amber-100/80 text-amber-700 flex items-center justify-center mb-3">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        </div>
+        <h2 class="text-xs font-bold text-slate-900 leading-tight">Role<br/>Assignment</h2>
+        <p class="text-[10px] text-slate-500 mt-1 font-medium">Deterministic Match</p>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="bg-rose-50/90 border border-rose-200 rounded-2xl p-4 flex flex-col items-center text-center relative group hover:shadow-md transition-shadow">
+        <div class="w-7 h-7 rounded-full bg-rose-600 text-white text-xs font-bold flex items-center justify-center mb-3 shadow-xs">5</div>
+        <div class="w-11 h-11 rounded-xl bg-rose-100/80 text-rose-700 flex items-center justify-center mb-3">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </div>
+        <h2 class="text-xs font-bold text-slate-900 leading-tight">Asset<br/>Assignment</h2>
+        <p class="text-[10px] text-slate-500 mt-1 font-medium">ATS Kanban & Projects</p>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="bg-blue-50/90 border border-blue-200 rounded-2xl p-4 flex flex-col items-center text-center relative group hover:shadow-md transition-shadow">
+        <div class="w-7 h-7 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center mb-3 shadow-xs">6</div>
+        <div class="w-11 h-11 rounded-xl bg-blue-100/80 text-blue-700 flex items-center justify-center mb-3">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        </div>
+        <h2 class="text-xs font-bold text-slate-900 leading-tight">Access &<br/>Portals</h2>
+        <p class="text-[10px] text-slate-500 mt-1 font-medium">JWT Secure Sessions</p>
+      </div>
+
+      <!-- Step 7 -->
+      <div class="bg-emerald-50/90 border border-emerald-200 rounded-2xl p-4 flex flex-col items-center text-center relative group hover:shadow-md transition-shadow">
+        <div class="w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center mb-3 shadow-xs">7</div>
+        <div class="w-11 h-11 rounded-xl bg-emerald-100/80 text-emerald-700 flex items-center justify-center mb-3">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        </div>
+        <h2 class="text-xs font-bold text-slate-900 leading-tight">Lifecycle<br/>Management</h2>
+        <p class="text-[10px] text-slate-500 mt-1 font-medium">Placement & FDPs</p>
+      </div>
+
+    </div>
+
+    <!-- Downward Connecting Arrows SVG Canvas -->
+    <div class="hidden md:flex justify-between px-10 my-2 h-7 items-center text-slate-400">
+      <div class="flex-1 flex justify-center text-sky-500 font-bold">↓</div>
+      <div class="flex-1 flex justify-center text-emerald-500 font-bold">↓</div>
+      <div class="flex-1 flex justify-center text-purple-500 font-bold">↓</div>
+      <div class="flex-1 flex justify-center text-amber-500 font-bold">↓</div>
+      <div class="flex-1 flex justify-center text-rose-500 font-bold">↓</div>
+      <div class="flex-1 flex justify-center text-blue-500 font-bold">↓</div>
+      <div class="flex-1 flex justify-center text-emerald-500 font-bold">↓</div>
+    </div>
+
+    <!-- Row 2: Middle Hub Container (DigiLocker & Core Verification Hub) -->
+    <div class="bg-violet-50/90 border-2 border-violet-200 rounded-2xl p-5 mb-5 flex flex-col md:flex-row items-center gap-4 shadow-sm">
+      <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-violet-600 to-indigo-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-violet-400/20">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+      </div>
+      <div class="text-center md:text-left flex-1">
+        <h2 class="text-base sm:text-lg font-bold text-slate-900 flex items-center justify-center md:justify-start gap-2">
+          <span>Verification & Integration Hub</span>
+          <span class="text-[11px] font-bold bg-violet-200 text-violet-800 px-2.5 py-0.5 rounded-full">DigiLocker NAD Compliant</span>
+        </h2>
+        <p class="text-xs text-slate-600 mt-1 font-medium leading-relaxed">
+          Cryptographic hash sync of degrees, marksheets, NPTEL/SWAYAM scores, HackerRank ratings & campus SIS records.
+        </p>
+      </div>
+    </div>
+
+    <!-- Dual Sync Arrows -->
+    <div class="hidden md:flex justify-around px-24 mb-3 text-slate-400 font-bold text-sm">
+      <span>↕</span>
+      <span>↕</span>
+    </div>
+
+    <!-- Row 3: Two Side-by-Side Containers (Database Layer & Application Layer) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-7">
+      
+      <!-- Off-Chain Storage / Database Layer -->
+      <div class="bg-rose-50/70 border border-rose-200 rounded-2xl p-5 flex items-center gap-4 shadow-xs">
+        <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center shrink-0">
+          <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3C7.58 3 4 4.79 4 7v10c0 2.21 3.58 4 8 4s8-1.79 8-4V7c0-2.21-3.58-4-8-4zm0 2c3.87 0 6 1.5 6 2s-2.13 2-6 2-6-1.5-6-2 2.13-2 6-2zm0 6c3.87 0 6 1.5 6 2s-2.13 2-6 2-6-1.5-6-2 2.13-2 6-2zm0 6c3.87 0 6 1.5 6 2s-2.13 2-6 2-6-1.5-6-2 2.13-2 6-2z"/></svg>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-slate-900">Database Layer (Off-Chain)</h3>
+          <p class="text-xs text-slate-600 mt-0.5">MongoDB Database • Student Skill Matrix, ATS Pipelines & Resumes</p>
+        </div>
+      </div>
+
+      <!-- Application Layer -->
+      <div class="bg-sky-50/70 border border-sky-200 rounded-2xl p-5 flex items-center gap-4 shadow-xs">
+        <div class="w-12 h-12 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center shrink-0">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-slate-900">Application Layer</h3>
+          <p class="text-xs text-slate-600 mt-0.5">Frontend (React 18 + Vite) | Backend (Node.js + Express REST APIs)</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Row 4: Bottom Pillars Green Bar -->
+    <div class="bg-emerald-50 border border-emerald-300/80 rounded-2xl py-3 px-6 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs font-bold text-emerald-800">
+      <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Secure Identities</span>
+      <span class="text-emerald-300 hidden sm:inline">•</span>
+      <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Trusted Access</span>
+      <span class="text-emerald-300 hidden sm:inline">•</span>
+      <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Tamper-Proof Records</span>
+      <span class="text-emerald-300 hidden sm:inline">•</span>
+      <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Deterministic Matching</span>
+    </div>
+
+  </div>
+
+</body>
+</html>

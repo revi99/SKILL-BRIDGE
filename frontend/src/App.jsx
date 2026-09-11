@@ -24,11 +24,10 @@ import IndustryDashboard from './pages/industry/IndustryDashboard';
 import PostingsManager from './pages/industry/PostingsManager';
 import ApplicantReviewPage from './pages/industry/ApplicantReviewPage';
 
-// Academician & Institutional Pages
+// Academician Pages
 import AcademicianDashboard from './pages/academician/AcademicianDashboard';
 import CollaborationManager from './pages/academician/CollaborationManager';
 import StudentCohortView from './pages/academician/StudentCohortView';
-import InstitutionAnalyticsPage from './pages/institution/InstitutionAnalyticsPage';
 
 // Enterprise Collaboration & Integrations Pages
 import MentorshipHubPage from './pages/collaboration/MentorshipHubPage';
@@ -37,8 +36,8 @@ import IntegrationsHubPage from './pages/integrations/IntegrationsHubPage';
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#0b0f19] text-slate-100 font-sans">
-      {/* 1-Click Instant 4-Role Switcher Banner */}
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
+      {/* 1-Click Instant 3-Role Switcher Banner */}
       <DemoBar />
 
       {/* Main Navbar */}
@@ -56,7 +55,6 @@ export default function App() {
           <Route path="/mentorship" element={<MentorshipHubPage />} />
           <Route path="/projects" element={<LiveProjectsPage />} />
           <Route path="/integrations" element={<IntegrationsHubPage />} />
-          <Route path="/institution/analytics" element={<InstitutionAnalyticsPage />} />
 
           {/* Student Protected Routes */}
           <Route element={<ProtectedRoute allowedRoles={['student']} />}>

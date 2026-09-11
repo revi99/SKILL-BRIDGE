@@ -13,8 +13,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   const handleRedirect = (role, userEmail) => {
-    if (userEmail === 'institution@demo.com') navigate('/institution/analytics');
-    else if (role === 'student') navigate('/student/dashboard');
+    if (role === 'student') navigate('/student/dashboard');
     else if (role === 'industry') navigate('/industry/dashboard');
     else if (role === 'academician') navigate('/academician/dashboard');
     else navigate('/');
@@ -48,126 +47,113 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
+    <div className="min-h-[80vh] flex items-center justify-center px-4 py-12 bg-slate-50">
       <div className="max-w-md w-full space-y-6">
         {/* Header */}
         <div className="text-center">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 mb-4 shadow-lg shadow-indigo-500/10">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-violet-50 text-violet-600 border border-violet-200 mb-4 shadow-xs">
             <Sparkles className="w-6 h-6" />
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Welcome Back</h2>
-          <p className="mt-2 text-xs sm:text-sm text-slate-400">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Welcome Back</h2>
+          <p className="mt-2 text-xs sm:text-sm text-slate-600">
             Sign in to access your customized portal or use a 1-click demo account.
           </p>
         </div>
 
         {/* 1-Click Fast Demo Logins */}
-        <div className="glass-panel p-4 rounded-xl border border-indigo-500/30 space-y-2.5">
+        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-[#CBF1F5] uppercase tracking-wider flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-[#71C9CE]" /> 1-Click 4-Role Demo Accounts
+            <span className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-violet-600" /> 1-Click Fast Demo Accounts
             </span>
-            <span className="text-[10px] text-slate-400 font-mono">Instant Auth</span>
+            <span className="text-[10px] text-violet-600 font-bold bg-violet-50 px-2 py-0.5 rounded-full border border-violet-200">
+              Instant Access
+            </span>
           </div>
 
           <div className="grid grid-cols-1 gap-2">
             <button
               type="button"
               onClick={() => handleDemoClick('student')}
-              className="flex items-center justify-between px-3 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-slate-200 text-xs font-medium transition-all group"
+              className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-violet-50 border border-slate-200 hover:border-violet-300 text-slate-800 text-xs font-medium transition-all group shadow-xs"
             >
-              <div className="flex items-center gap-2">
-                <UserCheck className="w-4 h-4 text-indigo-400" />
+              <div className="flex items-center gap-2.5">
+                <UserCheck className="w-4 h-4 text-violet-600" />
                 <div className="text-left">
-                  <p className="font-semibold text-white">Student Account</p>
-                  <p className="text-[10px] text-slate-400">Rahul Sharma (IIIT)</p>
+                  <p className="font-bold text-slate-900">Student Account</p>
+                  <p className="text-[11px] text-slate-500">Rahul Sharma (IIIT Delhi)</p>
                 </div>
               </div>
-              <span className="text-indigo-400 group-hover:translate-x-0.5 transition-transform">Login →</span>
+              <span className="text-violet-600 font-bold group-hover:translate-x-0.5 transition-transform">Login →</span>
             </button>
 
             <button
               type="button"
               onClick={() => handleDemoClick('industry')}
-              className="flex items-center justify-between px-3 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-slate-200 text-xs font-medium transition-all group"
+              className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-violet-50 border border-slate-200 hover:border-violet-300 text-slate-800 text-xs font-medium transition-all group shadow-xs"
             >
-              <div className="flex items-center gap-2">
-                <Building2 className="w-4 h-4 text-emerald-400" />
+              <div className="flex items-center gap-2.5">
+                <Building2 className="w-4 h-4 text-indigo-600" />
                 <div className="text-left">
-                  <p className="font-semibold text-white">Industry Recruiter</p>
-                  <p className="text-[10px] text-slate-400">TechCorp Innovations</p>
+                  <p className="font-bold text-slate-900">Industry Recruiter</p>
+                  <p className="text-[11px] text-slate-500">TechCorp Innovations</p>
                 </div>
               </div>
-              <span className="text-emerald-400 group-hover:translate-x-0.5 transition-transform">Login →</span>
+              <span className="text-indigo-600 font-bold group-hover:translate-x-0.5 transition-transform">Login →</span>
             </button>
 
             <button
               type="button"
               onClick={() => handleDemoClick('academician')}
-              className="flex items-center justify-between px-3 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-slate-200 text-xs font-medium transition-all group"
+              className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-violet-50 border border-slate-200 hover:border-violet-300 text-slate-800 text-xs font-medium transition-all group shadow-xs"
             >
-              <div className="flex items-center gap-2">
-                <GraduationCap className="w-4 h-4 text-purple-400" />
+              <div className="flex items-center gap-2.5">
+                <GraduationCap className="w-4 h-4 text-purple-600" />
                 <div className="text-left">
-                  <p className="font-semibold text-white">Academician Dean</p>
-                  <p className="text-[10px] text-slate-400">Dr. Aris Thorne (ABC Tech)</p>
+                  <p className="font-bold text-slate-900">Academician Dean</p>
+                  <p className="text-[11px] text-slate-500">Dr. Aris Thorne (Dean CS)</p>
                 </div>
               </div>
-              <span className="text-purple-400 group-hover:translate-x-0.5 transition-transform">Login →</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => handleDemoClick('institution')}
-              className="flex items-center justify-between px-3 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-slate-200 text-xs font-medium transition-all group"
-            >
-              <div className="flex items-center gap-2">
-                <Award className="w-4 h-4 text-cyan-400" />
-                <div className="text-left">
-                  <p className="font-semibold text-white">Institution / NIRF Policy Lead</p>
-                  <p className="text-[10px] text-slate-400">Dr. Vikram Sethi (NIRF Cell)</p>
-                </div>
-              </div>
-              <span className="text-cyan-400 group-hover:translate-x-0.5 transition-transform">Login →</span>
+              <span className="text-purple-600 font-bold group-hover:translate-x-0.5 transition-transform">Login →</span>
             </button>
           </div>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4">
+        <form onSubmit={handleSubmit} className="bg-white p-6 sm:p-7 rounded-3xl border border-slate-200 shadow-md space-y-4">
           {error && (
-            <div className="flex items-center gap-2 p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs">
+            <div className="flex items-center gap-2 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{error}</span>
             </div>
           )}
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Email Address</label>
+            <label className="block text-xs font-semibold text-slate-700 mb-1.5">Email Address</label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
+              <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@institution.edu"
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg pl-9 pr-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
+                placeholder="you@organization.com"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-600 focus:bg-white transition-colors"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Password</label>
+            <label className="block text-xs font-semibold text-slate-700 mb-1.5">Password</label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
+              <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg pl-9 pr-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-600 focus:bg-white transition-colors"
               />
             </div>
           </div>
@@ -175,7 +161,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-semibold py-2.5 rounded-lg text-sm transition-all shadow-md shadow-indigo-600/25 mt-2"
+            className="w-full btn-brand-primary font-bold py-2.5 rounded-xl text-sm flex items-center justify-center gap-2 disabled:opacity-50 mt-2"
           >
             {loading ? (
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -187,9 +173,9 @@ export default function LoginPage() {
             )}
           </button>
 
-          <p className="text-center text-xs text-slate-400 pt-2">
+          <p className="text-center text-xs text-slate-500 pt-2">
             Don't have an account?{' '}
-            <Link to="/register" className="text-indigo-400 hover:underline font-semibold">
+            <Link to="/register" className="text-violet-600 hover:underline font-bold">
               Create one here
             </Link>
           </p>

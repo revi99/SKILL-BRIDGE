@@ -95,27 +95,27 @@ export default function OpportunitiesPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 bg-slate-50">
       {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#71C9CE]/15 text-[#CBF1F5] border border-[#71C9CE]/30">
+            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-violet-50 text-violet-700 border border-violet-200">
               Rule-Based Match Engine
             </span>
-            <span className="text-xs text-[#A6E3E9] font-mono">Live Openings</span>
+            <span className="text-xs text-slate-500 font-mono">Live Openings</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
             Internship & Placement Opportunities
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-sm text-slate-500 mt-1">
             Openings ranked dynamically according to your verified skill assessment tags.
           </p>
         </div>
       </div>
 
       {/* Filter Bar */}
-      <div className="glass-panel p-4 rounded-2xl border border-slate-800 space-y-4">
+      <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-4">
         <form onSubmit={handleSearchSubmit} className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
@@ -124,7 +124,7 @@ export default function OpportunitiesPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search by job title, company, or skill (e.g. React, Docker)..."
-              className="w-full bg-slate-900 border border-slate-700 rounded-xl pl-10 pr-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-2 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-600 focus:bg-white transition-colors"
             />
           </div>
 
@@ -133,7 +133,7 @@ export default function OpportunitiesPage() {
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-semibold text-slate-300 focus:outline-none focus:border-indigo-500"
+              className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 focus:outline-none focus:border-violet-600"
             >
               <option value="All">All Types</option>
               <option value="Internship">Internship</option>
@@ -145,7 +145,7 @@ export default function OpportunitiesPage() {
               <select
                 value={minMatch}
                 onChange={(e) => setMinMatch(e.target.value)}
-                className="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-semibold text-indigo-300 focus:outline-none focus:border-indigo-500"
+                className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-violet-700 focus:outline-none focus:border-violet-600"
               >
                 <option value="All">All Match %</option>
                 <option value="75">High Match (≥ 75%)</option>
@@ -155,7 +155,7 @@ export default function OpportunitiesPage() {
 
             <button
               type="submit"
-              className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-xl shadow-sm transition-colors"
+              className="px-5 py-2 btn-brand-primary text-xs font-semibold rounded-xl"
             >
               Filter
             </button>
@@ -166,13 +166,13 @@ export default function OpportunitiesPage() {
       {/* Postings Grid */}
       {loading ? (
         <div className="min-h-[40vh] flex items-center justify-center">
-          <div className="w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-8 h-8 border-4 border-violet-600 border-t-transparent rounded-full animate-spin"></div>
         </div>
       ) : postings.length === 0 ? (
-        <div className="glass-panel p-12 rounded-3xl border border-slate-800 text-center space-y-3">
-          <Briefcase className="w-12 h-12 text-slate-600 mx-auto" />
-          <h3 className="text-base font-bold text-white">No Matching Postings Found</h3>
-          <p className="text-xs text-slate-400 max-w-sm mx-auto">
+        <div className="bg-white p-12 rounded-3xl border border-slate-200 shadow-sm text-center space-y-3">
+          <Briefcase className="w-12 h-12 text-slate-300 mx-auto" />
+          <h3 className="text-base font-bold text-slate-900">No Matching Postings Found</h3>
+          <p className="text-xs text-slate-500 max-w-sm mx-auto">
             Try adjusting your search query or match score filter to view all available opportunities.
           </p>
         </div>
@@ -181,16 +181,16 @@ export default function OpportunitiesPage() {
           {postings.map((post) => (
             <div
               key={post._id}
-              className="glass-panel glass-panel-hover p-6 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-5"
+              className="bg-white p-6 rounded-3xl border border-slate-200 hover:border-violet-300 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-5"
             >
               <div>
                 {/* Card Top: Type & Match Badge */}
                 <div className="flex items-start justify-between gap-3 mb-3">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
+                    <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700">
                       {post.type}
                     </span>
-                    <span className="text-xs text-slate-400 font-medium">
+                    <span className="text-xs text-slate-500 font-medium">
                       {post.workMode} • {post.location}
                     </span>
                   </div>
@@ -199,16 +199,16 @@ export default function OpportunitiesPage() {
                 </div>
 
                 {/* Title & Company */}
-                <h3 className="text-lg font-bold text-white leading-snug">{post.title}</h3>
-                <p className="text-xs font-semibold text-indigo-400 mt-0.5">{post.companyName}</p>
+                <h3 className="text-lg font-bold text-slate-900 leading-snug">{post.title}</h3>
+                <p className="text-xs font-bold text-violet-600 mt-0.5">{post.companyName}</p>
 
-                <p className="text-xs text-slate-300 mt-3 line-clamp-3 leading-relaxed">
+                <p className="text-xs text-slate-600 mt-3 line-clamp-3 leading-relaxed">
                   {post.description}
                 </p>
 
                 {/* Skill Breakdown */}
-                <div className="mt-4 pt-3 border-t border-slate-800/80 space-y-2">
-                  <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
+                <div className="mt-4 pt-3 border-t border-slate-100 space-y-2">
+                  <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block">
                     Skill Tag Breakdown:
                   </span>
                   <div className="flex flex-wrap gap-1.5">
@@ -217,16 +217,16 @@ export default function OpportunitiesPage() {
                       return (
                         <span
                           key={skill}
-                          className={`text-xs px-2.5 py-0.5 rounded-md font-medium flex items-center gap-1 ${
+                          className={`text-xs px-2.5 py-0.5 rounded-lg font-medium flex items-center gap-1 ${
                             isMatched
-                              ? 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/30'
-                              : 'bg-amber-500/10 text-amber-300 border border-amber-500/30'
+                              ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                              : 'bg-amber-50 text-amber-700 border border-amber-200'
                           }`}
                         >
                           {isMatched ? (
-                            <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                            <CheckCircle2 className="w-3 h-3 text-emerald-600" />
                           ) : (
-                            <AlertCircle className="w-3 h-3 text-amber-400" />
+                            <AlertCircle className="w-3 h-3 text-amber-500" />
                           )}
                           <span>{skill}</span>
                         </span>
@@ -237,21 +237,21 @@ export default function OpportunitiesPage() {
               </div>
 
               {/* Card Bottom: Stipend & Action */}
-              <div className="flex items-center justify-between pt-4 border-t border-slate-800 text-xs">
+              <div className="flex items-center justify-between pt-4 border-t border-slate-100 text-xs">
                 <div>
                   <span className="text-slate-400 block text-[11px]">Compensation / Stipend</span>
-                  <span className="font-bold text-white font-mono text-sm">{post.stipend}</span>
+                  <span className="font-bold text-slate-900 font-mono text-sm">{post.stipend}</span>
                 </div>
 
                 {post.hasApplied ? (
-                  <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-500/10 text-emerald-300 font-semibold border border-emerald-500/30">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                     <span>Applied</span>
                   </span>
                 ) : (
                   <button
                     onClick={() => handleOpenApply(post)}
-                    className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition-all shadow-md shadow-indigo-600/20"
+                    className="flex items-center gap-1.5 px-5 py-2 rounded-xl btn-brand-primary font-semibold"
                   >
                     <span>One-Click Apply</span>
                     <Send className="w-3.5 h-3.5" />
@@ -265,50 +265,51 @@ export default function OpportunitiesPage() {
 
       {/* 1-Click Apply Modal */}
       {selectedPost && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="glass-panel max-w-lg w-full p-6 sm:p-8 rounded-3xl border border-slate-700 shadow-2xl space-y-5">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="bg-white max-w-lg w-full p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-2xl space-y-5">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div>
-                <h3 className="text-lg font-bold text-white">Confirm Application</h3>
-                <p className="text-xs text-indigo-300">{selectedPost.title} • {selectedPost.companyName}</p>
+                <span className="text-xs font-bold uppercase tracking-wider text-violet-600">Apply to Opening</span>
+                <h3 className="text-lg font-bold text-slate-900">{selectedPost.title}</h3>
+                <p className="text-xs text-slate-500">{selectedPost.companyName}</p>
               </div>
               <button
                 onClick={() => setSelectedPost(null)}
-                className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {applySuccess ? (
-              <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-center space-y-1">
-                <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
+              <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-center space-y-1">
+                <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto" />
                 <p className="text-sm font-bold">{applySuccess}</p>
               </div>
             ) : (
               <>
-                <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
                   <div>
-                    <span className="text-xs text-slate-400">Attached Skill Match</span>
-                    <p className="text-sm font-bold text-white">{selectedPost.matchedSkills?.length} of {selectedPost.requiredSkills?.length} Skills Matched</p>
+                    <span className="text-xs text-slate-500">Attached Skill Match</span>
+                    <p className="text-sm font-bold text-slate-900">{selectedPost.matchedSkills?.length} of {selectedPost.requiredSkills?.length} Skills Matched</p>
                   </div>
                   <MatchBadge percent={selectedPost.matchPercent || 0} size="md" />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                     Cover Note to Recruiter (Optional)
                   </label>
                   <textarea
                     rows={3}
                     value={coverNote}
                     onChange={(e) => setCoverNote(e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-600 focus:bg-white"
                   ></textarea>
                 </div>
 
                 {applyError && (
-                  <p className="text-xs text-rose-400 bg-rose-500/10 p-2.5 rounded-lg border border-rose-500/30">
+                  <p className="text-xs text-rose-700 bg-rose-50 p-2.5 rounded-xl border border-rose-200">
                     {applyError}
                   </p>
                 )}
@@ -317,7 +318,7 @@ export default function OpportunitiesPage() {
                   <button
                     type="button"
                     onClick={() => setSelectedPost(null)}
-                    className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white"
+                    className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100"
                   >
                     Cancel
                   </button>
@@ -325,7 +326,7 @@ export default function OpportunitiesPage() {
                     type="button"
                     onClick={handleApplySubmit}
                     disabled={applying}
-                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white text-xs font-semibold shadow-md shadow-indigo-600/30"
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl btn-brand-primary disabled:opacity-50 text-xs font-semibold"
                   >
                     {applying ? (
                       <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>

@@ -36,9 +36,23 @@ import {
   PieChart,
   Pie,
   Cell,
+  AreaChart,
+  Area,
+  LineChart,
+  Line,
 } from 'recharts';
 
-const PIE_COLORS = ['#71C9CE', '#A6E3E9', '#CBF1F5', '#10b981', '#f59e0b'];
+const PIE_COLORS = ['#7c3aed', '#6366f1', '#3b82f6', '#10b981', '#f59e0b'];
+
+const DEFAULT_SKILL_DATA = [
+  { skill: 'React & Frontend', avgScore: 82, benchmark: 75 },
+  { skill: 'Node.js & Backend', avgScore: 68, benchmark: 75 },
+  { skill: 'SQL & Database', avgScore: 74, benchmark: 75 },
+  { skill: 'Cloud & Docker', avgScore: 56, benchmark: 75 },
+  { skill: 'Data Structures & Algo', avgScore: 85, benchmark: 75 },
+  { skill: 'Generative AI & ML', avgScore: 58, benchmark: 75 },
+  { skill: 'System Design & APIs', avgScore: 64, benchmark: 75 },
+];
 
 export default function AcademicianDashboard() {
   const { user } = useAuth();
@@ -135,7 +149,7 @@ export default function AcademicianDashboard() {
   if (loading) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-[#71C9CE] border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-8 h-8 border-4 border-violet-600 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -147,23 +161,23 @@ export default function AcademicianDashboard() {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 bg-slate-50">
       {/* 1. Dean & Faculty Banner */}
-      <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-[#71C9CE]/30 relative overflow-hidden">
+      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm relative overflow-hidden">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#71C9CE]/15 text-[#CBF1F5] border border-[#71C9CE]/30">
+              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-violet-50 text-violet-700 border border-violet-200">
                 Academic Administration & R&D
               </span>
-              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#0e242b] text-[#CBF1F5] border border-[#A6E3E9]/30">
+              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
                 {user?.instituteName || 'Institutional Dean'}
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#E3FDFD]">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
               Faculty & Dean Portal: {user?.name}
             </h1>
-            <p className="text-[#CBF1F5]/70 text-xs sm:text-sm mt-1 max-w-2xl">
+            <p className="text-slate-500 text-xs sm:text-sm mt-1 max-w-2xl">
               Cohort skill-gap intelligence, Faculty Development Programs (FDPs), industrial attachments, and joint academic-industry research partnerships.
             </p>
           </div>
@@ -171,78 +185,70 @@ export default function AcademicianDashboard() {
           <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={() => setShowProposalModal(true)}
-              className="btn-brand-primary px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 shadow-lg transition-transform hover:scale-105"
+              className="btn-brand-primary px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 shadow-md transition-transform hover:scale-105"
             >
               <PlusCircle className="w-4 h-4" />
               <span>Post Research Call / FDP</span>
             </button>
-
-            <Link
-              to="/institution/analytics"
-              className="glass-panel hover:bg-[#122d36] text-[#CBF1F5] text-xs font-semibold px-4 py-2.5 rounded-xl border border-[#A6E3E9]/30 flex items-center gap-2 transition-all"
-            >
-              <BarChart3 className="w-4 h-4 text-[#71C9CE]" />
-              <span>NIRF Policy Suite</span>
-            </Link>
           </div>
         </div>
       </div>
 
       {/* 2. Top Summary KPI Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        <div className="glass-panel p-5 rounded-2xl border border-[#A6E3E9]/15">
-          <div className="flex items-center justify-between text-[#CBF1F5]/70 mb-2">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="flex items-center justify-between text-slate-500 mb-2">
             <span className="text-xs font-medium">Assessed Students</span>
-            <Users className="w-4 h-4 text-[#71C9CE]" />
+            <Users className="w-4 h-4 text-violet-600" />
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-extrabold text-[#E3FDFD]">{analytics?.totalAssessedStudents || 3}</span>
-            <span className="text-xs text-[#71C9CE] font-semibold">Active Cohort</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-slate-900">{analytics?.totalAssessedStudents || 3}</span>
+            <span className="text-xs text-violet-600 font-semibold">Active Cohort</span>
           </div>
         </div>
 
-        <div className="glass-panel p-5 rounded-2xl border border-[#A6E3E9]/15">
-          <div className="flex items-center justify-between text-[#CBF1F5]/70 mb-2">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="flex items-center justify-between text-slate-500 mb-2">
             <span className="text-xs font-medium">Average Cohort Score</span>
-            <TrendingUp className="w-4 h-4 text-[#A6E3E9]" />
+            <TrendingUp className="w-4 h-4 text-indigo-600" />
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-extrabold text-[#E3FDFD]">{analytics?.averageCohortScore || 74}%</span>
-            <span className="text-xs text-emerald-400 font-medium">Competent</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-slate-900">{analytics?.averageCohortScore || 74}%</span>
+            <span className="text-xs text-emerald-600 font-medium">Competent</span>
           </div>
         </div>
 
-        <div className="glass-panel p-5 rounded-2xl border border-[#A6E3E9]/15">
-          <div className="flex items-center justify-between text-[#CBF1F5]/70 mb-2">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="flex items-center justify-between text-slate-500 mb-2">
             <span className="text-xs font-medium">Active Research Calls</span>
-            <FlaskConical className="w-4 h-4 text-[#CBF1F5]" />
+            <FlaskConical className="w-4 h-4 text-purple-600" />
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-extrabold text-[#71C9CE]">{collaborations.length || 2}</span>
-            <span className="text-xs text-[#CBF1F5]/60">Joint Proposals</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-violet-600">{collaborations.length || 2}</span>
+            <span className="text-xs text-slate-500">Joint Proposals</span>
           </div>
         </div>
 
-        <div className="glass-panel p-5 rounded-2xl border border-[#A6E3E9]/15">
-          <div className="flex items-center justify-between text-[#CBF1F5]/70 mb-2">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="flex items-center justify-between text-slate-500 mb-2">
             <span className="text-xs font-medium">Available FDP Grants</span>
-            <Award className="w-4 h-4 text-emerald-400" />
+            <Award className="w-4 h-4 text-amber-500" />
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-extrabold text-emerald-300">{fdpList.length}</span>
-            <span className="text-xs text-emerald-400 font-medium">Industry Calls</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-amber-600">{fdpList.length}</span>
+            <span className="text-xs text-emerald-700 font-medium">Industry Calls</span>
           </div>
         </div>
       </div>
 
       {/* 3. Navigation Tabs */}
-      <div className="flex items-center gap-2 border-b border-[#71C9CE]/20 pb-2">
+      <div className="flex items-center gap-2 border-b border-slate-200 pb-2">
         <button
           onClick={() => setActiveTab('gaps')}
           className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all ${
             activeTab === 'gaps'
-              ? 'bg-[#71C9CE] text-[#061519] shadow-md shadow-[#71C9CE]/20'
-              : 'text-[#CBF1F5] hover:bg-[#0e242b]'
+              ? 'bg-violet-600 text-white shadow-xs'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
           <BarChart3 className="w-4 h-4" />
@@ -253,8 +259,8 @@ export default function AcademicianDashboard() {
           onClick={() => setActiveTab('fdp')}
           className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all ${
             activeTab === 'fdp'
-              ? 'bg-[#71C9CE] text-[#061519] shadow-md shadow-[#71C9CE]/20'
-              : 'text-[#CBF1F5] hover:bg-[#0e242b]'
+              ? 'bg-violet-600 text-white shadow-xs'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
           <GraduationCap className="w-4 h-4" />
@@ -265,8 +271,8 @@ export default function AcademicianDashboard() {
           onClick={() => setActiveTab('research')}
           className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all ${
             activeTab === 'research'
-              ? 'bg-[#71C9CE] text-[#061519] shadow-md shadow-[#71C9CE]/20'
-              : 'text-[#CBF1F5] hover:bg-[#0e242b]'
+              ? 'bg-violet-600 text-white shadow-xs'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
           <FlaskConical className="w-4 h-4" />
@@ -279,14 +285,14 @@ export default function AcademicianDashboard() {
         <div className="space-y-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {/* Left: Bar Chart of Average Competency */}
-            <div className="lg:col-span-8 glass-panel p-6 rounded-3xl border border-[#A6E3E9]/20 space-y-6">
-              <div className="flex items-center justify-between border-b border-[#A6E3E9]/15 pb-4">
+            <div className="lg:col-span-8 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                 <div>
-                  <h3 className="text-lg font-bold text-[#E3FDFD] flex items-center gap-2">
-                    <BarChart3 className="w-5 h-5 text-[#71C9CE]" />
+                  <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                    <BarChart3 className="w-5 h-5 text-violet-600" />
                     <span>Cohort Average vs Industry Requirement (75% Benchmark)</span>
                   </h3>
-                  <p className="text-xs text-[#CBF1F5]/70 mt-0.5">
+                  <p className="text-xs text-slate-500 mt-0.5">
                     Measured across all student assessments in {user?.instituteName || 'College'}
                   </p>
                 </div>
@@ -294,25 +300,25 @@ export default function AcademicianDashboard() {
 
               <div className="h-[300px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={analytics?.topSkills || []} margin={{ top: 10, right: 10, left: -20, bottom: 20 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1a424e" />
-                    <XAxis dataKey="skill" stroke="#A6E3E9" tick={{ fill: '#CBF1F5', fontSize: 11 }} interval={0} angle={-15} textAnchor="end" />
-                    <YAxis domain={[0, 100]} stroke="#A6E3E9" tick={{ fill: '#CBF1F5', fontSize: 11 }} />
-                    <Tooltip contentStyle={{ backgroundColor: '#0e242b', borderColor: '#71C9CE', borderRadius: '8px', fontSize: '12px', color: '#E3FDFD' }} />
+                  <BarChart data={analytics?.topSkills?.length ? analytics.topSkills : DEFAULT_SKILL_DATA} margin={{ top: 10, right: 10, left: -20, bottom: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                    <XAxis dataKey="skill" stroke="#94a3b8" tick={{ fill: '#475569', fontSize: 11 }} interval={0} angle={-15} textAnchor="end" />
+                    <YAxis domain={[0, 100]} stroke="#94a3b8" tick={{ fill: '#475569', fontSize: 11 }} />
+                    <Tooltip contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e2e8f0', borderRadius: '12px', fontSize: '12px', color: '#0f172a', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }} />
                     <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
-                    <Bar dataKey="avgScore" name="Cohort Average Score" fill="#71C9CE" radius={[4, 4, 0, 0]} />
-                    <Bar dataKey="benchmark" name="Industry Benchmark" fill="#A6E3E9" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="avgScore" name="Cohort Average Score" fill="#7c3aed" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="benchmark" name="Industry Requirement (75% Benchmark)" fill="#cbd5e1" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
             </div>
 
             {/* Right: Readiness Breakdown Pie */}
-            <div className="lg:col-span-4 glass-panel p-6 rounded-3xl border border-[#A6E3E9]/20 space-y-4 flex flex-col justify-between">
+            <div className="lg:col-span-4 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4 flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between border-b border-[#A6E3E9]/15 pb-4 mb-2">
-                  <h3 className="text-base font-bold text-[#E3FDFD] flex items-center gap-2">
-                    <PieIcon className="w-4 h-4 text-[#71C9CE]" />
+                <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-2">
+                  <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                    <PieIcon className="w-4 h-4 text-violet-600" />
                     <span>Placement Readiness</span>
                   </h3>
                 </div>
@@ -333,7 +339,7 @@ export default function AcademicianDashboard() {
                           <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
                         ))}
                       </Pie>
-                      <Tooltip contentStyle={{ backgroundColor: '#0e242b', borderColor: '#71C9CE', borderRadius: '8px', fontSize: '12px' }} />
+                      <Tooltip contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e2e8f0', borderRadius: '8px', fontSize: '12px' }} />
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
@@ -343,59 +349,119 @@ export default function AcademicianDashboard() {
                     <div key={item.name} className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <span className="w-3 h-3 rounded-full" style={{ backgroundColor: PIE_COLORS[idx] }}></span>
-                        <span className="text-[#CBF1F5]">{item.name}</span>
+                        <span className="text-slate-600">{item.name}</span>
                       </div>
-                      <span className="font-bold text-[#E3FDFD]">{item.value} Students</span>
+                      <span className="font-bold text-slate-900">{item.value} Students</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-[#A6E3E9]/15 text-center">
-                <span className="text-[11px] text-[#71C9CE] font-semibold">
+              <div className="pt-3 border-t border-slate-100 text-center">
+                <span className="text-[11px] text-violet-700 font-semibold">
                   Curriculum intervention recommended for emerging tech
                 </span>
               </div>
             </div>
           </div>
 
+          {/* Middle: Hiring Velocity & Placement Preparedness Trends */}
+          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
+              <div>
+                <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-violet-600" />
+                  <span>Hiring Velocity & Placement Preparedness Trends</span>
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Monthly projection comparing corporate internship & job volume vs. verified student preparedness & offers
+                </p>
+              </div>
+              <div className="flex items-center gap-3 text-xs">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-bold border border-emerald-200">
+                  <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+                  +18.4% Preparedness Growth
+                </span>
+              </div>
+            </div>
+
+            <div className="h-[280px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart
+                  data={analytics?.hiringTrends || [
+                    { month: 'Jan', hiringDemand: 45, studentSupply: 32, placements: 24 },
+                    { month: 'Feb', hiringDemand: 58, studentSupply: 46, placements: 38 },
+                    { month: 'Mar', hiringDemand: 74, studentSupply: 58, placements: 50 },
+                    { month: 'Apr', hiringDemand: 88, studentSupply: 72, placements: 65 },
+                    { month: 'May', hiringDemand: 104, studentSupply: 86, placements: 78 },
+                    { month: 'Jun', hiringDemand: 125, studentSupply: 98, placements: 92 },
+                  ]}
+                  margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+                >
+                  <defs>
+                    <linearGradient id="colorDemandDean" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#7c3aed" stopOpacity={0.4} />
+                      <stop offset="95%" stopColor="#7c3aed" stopOpacity={0} />
+                    </linearGradient>
+                    <linearGradient id="colorSupplyDean" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3} />
+                      <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
+                    </linearGradient>
+                    <linearGradient id="colorPlacementsDean" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
+                      <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                  <XAxis dataKey="month" stroke="#94a3b8" tick={{ fill: '#475569', fontSize: 11 }} />
+                  <YAxis stroke="#94a3b8" tick={{ fill: '#475569', fontSize: 11 }} />
+                  <Tooltip contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e2e8f0', borderRadius: '12px', fontSize: '12px', color: '#0f172a', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }} />
+                  <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
+                  <Area type="monotone" dataKey="hiringDemand" name="Corporate Hiring Demand" stroke="#7c3aed" strokeWidth={2.5} fillOpacity={1} fill="url(#colorDemandDean)" />
+                  <Area type="monotone" dataKey="studentSupply" name="Student Preparedness Supply" stroke="#6366f1" strokeWidth={2} fillOpacity={1} fill="url(#colorSupplyDean)" />
+                  <Area type="monotone" dataKey="placements" name="Placements Finalized" stroke="#10b981" strokeWidth={2} fillOpacity={1} fill="url(#colorPlacementsDean)" />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
           {/* Critical Intervention Action Items */}
-          <div className="glass-panel p-6 rounded-3xl border border-[#71C9CE]/25 space-y-4">
-            <div className="flex items-center justify-between border-b border-[#A6E3E9]/15 pb-3">
-              <h3 className="text-base font-bold text-[#E3FDFD] flex items-center gap-2">
-                <AlertTriangle className="w-5 h-5 text-amber-400" />
+          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                <AlertTriangle className="w-5 h-5 text-amber-500" />
                 <span>Curriculum Action Plan: Identified Cohort Skill Deficits</span>
               </h3>
-              <span className="text-xs text-[#CBF1F5]/70 font-semibold">Priority Interventions</span>
+              <span className="text-xs text-slate-500 font-semibold">Priority Interventions</span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="p-4 rounded-2xl bg-[#081418]/80 border border-[#71C9CE]/20 space-y-2">
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-[#E3FDFD]">1. Docker & Containerization</span>
-                  <span className="text-rose-400 font-bold">-22% Gap</span>
+                  <span className="font-bold text-slate-900">1. Docker & Containerization</span>
+                  <span className="text-rose-600 font-bold">-22% Gap</span>
                 </div>
-                <p className="text-[11px] text-[#CBF1F5]/70">
+                <p className="text-[11px] text-slate-500">
                   Cohort average is 58% vs 80% industry benchmark. Introduce cloud-native lab workshops in Semester 6.
                 </p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#081418]/80 border border-[#71C9CE]/20 space-y-2">
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-[#E3FDFD]">2. REST API Security & OAuth</span>
-                  <span className="text-amber-400 font-bold">-16% Gap</span>
+                  <span className="font-bold text-slate-900">2. REST API Security & OAuth</span>
+                  <span className="text-amber-600 font-bold">-16% Gap</span>
                 </div>
-                <p className="text-[11px] text-[#CBF1F5]/70">
+                <p className="text-[11px] text-slate-500">
                   Cohort average is 64% vs 80% benchmark. Integrate OWASP API Top 10 into Web Technology syllabus.
                 </p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#081418]/80 border border-[#71C9CE]/20 space-y-2">
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-[#E3FDFD]">3. TypeScript & Clean Code</span>
-                  <span className="text-emerald-400 font-bold">-8% Gap</span>
+                  <span className="font-bold text-slate-900">3. TypeScript & Clean Code</span>
+                  <span className="text-emerald-600 font-bold">-8% Gap</span>
                 </div>
-                <p className="text-[11px] text-[#CBF1F5]/70">
+                <p className="text-[11px] text-slate-500">
                   Minor deficit. Students are closing this via recommended NPTEL self-paced micro-credentials.
                 </p>
               </div>
@@ -407,17 +473,17 @@ export default function AcademicianDashboard() {
       {/* TAB 2: Faculty Development Programs (FDPs) & Sabbaticals */}
       {activeTab === 'fdp' && (
         <div className="space-y-6">
-          <div className="glass-panel p-6 rounded-3xl border border-[#71C9CE]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <GraduationCap className="w-5 h-5 text-[#71C9CE]" />
-                <h2 className="text-lg font-bold text-[#E3FDFD]">Faculty Development Programs (FDPs) & Industrial Sabbaticals</h2>
+                <GraduationCap className="w-5 h-5 text-violet-600" />
+                <h2 className="text-lg font-bold text-slate-900">Faculty Development Programs (FDPs) & Industrial Sabbaticals</h2>
               </div>
-              <p className="text-xs text-[#CBF1F5]/70">
+              <p className="text-xs text-slate-500">
                 AICTE-recognized corporate training attachments for university professors and researchers.
               </p>
             </div>
-            <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#71C9CE]/15 text-[#CBF1F5] border border-[#71C9CE]/30">
+            <span className="text-xs font-bold px-3 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200">
               {fdpList.length} Active Industry Calls
             </span>
           </div>
@@ -429,26 +495,26 @@ export default function AcademicianDashboard() {
               return (
                 <div
                   key={fdp.id}
-                  className="glass-panel p-6 rounded-3xl border border-[#A6E3E9]/20 hover:border-[#71C9CE]/40 transition-all flex flex-col justify-between space-y-4"
+                  className="bg-white p-6 rounded-3xl border border-slate-200 hover:border-violet-300 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-4"
                 >
                   <div className="space-y-2">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#71C9CE]/15 text-[#CBF1F5] border border-[#71C9CE]/30">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-violet-50 text-violet-700 border border-violet-200">
                         {fdp.provider}
                       </span>
-                      <span className="text-[10px] text-[#A6E3E9] font-mono">{fdp.duration}</span>
+                      <span className="text-[10px] text-slate-500 font-mono">{fdp.duration}</span>
                     </div>
 
-                    <h3 className="text-base font-bold text-[#E3FDFD] leading-snug">{fdp.title}</h3>
-                    <p className="text-xs text-[#CBF1F5]/70">Eligibility: {fdp.eligibility}</p>
-                    <p className="text-xs text-[#71C9CE] font-semibold">Grant / Funding: {fdp.stipend}</p>
+                    <h3 className="text-base font-bold text-slate-900 leading-snug">{fdp.title}</h3>
+                    <p className="text-xs text-slate-500">Eligibility: {fdp.eligibility}</p>
+                    <p className="text-xs text-violet-700 font-semibold">Grant / Funding: {fdp.stipend}</p>
                   </div>
 
-                  <div className="pt-4 border-t border-[#A6E3E9]/15 flex items-center justify-between text-xs">
-                    <span className="text-[11px] text-[#CBF1F5]/60">Deadline: {fdp.deadline}</span>
+                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <span className="text-[11px] text-slate-400">Deadline: {fdp.deadline}</span>
                     {isApplied ? (
-                      <span className="text-emerald-400 font-bold flex items-center gap-1 text-xs">
-                        <CheckCircle2 className="w-4 h-4" /> Applied
+                      <span className="text-emerald-700 font-bold flex items-center gap-1 text-xs">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Applied
                       </span>
                     ) : (
                       <button
@@ -469,13 +535,13 @@ export default function AcademicianDashboard() {
       {/* TAB 3: Joint Academic-Industry Research Hub */}
       {activeTab === 'research' && (
         <div className="space-y-6">
-          <div className="glass-panel p-6 rounded-3xl border border-[#71C9CE]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <FlaskConical className="w-5 h-5 text-[#71C9CE]" />
-                <h2 className="text-lg font-bold text-[#E3FDFD]">Joint Academic-Industry Research Hub</h2>
+                <FlaskConical className="w-5 h-5 text-violet-600" />
+                <h2 className="text-lg font-bold text-slate-900">Joint Academic-Industry Research Hub</h2>
               </div>
-              <p className="text-xs text-[#CBF1F5]/70">
+              <p className="text-xs text-slate-500">
                 Co-author research patents, apply for joint corporate R&D grants, and match with tech co-investigators.
               </p>
             </div>
@@ -493,28 +559,28 @@ export default function AcademicianDashboard() {
             {collaborations.map((collab) => (
               <div
                 key={collab._id}
-                className="glass-panel p-6 rounded-3xl border border-[#A6E3E9]/20 hover:border-[#71C9CE]/40 transition-all space-y-4"
+                className="bg-white p-6 rounded-3xl border border-slate-200 hover:border-violet-300 shadow-sm hover:shadow-md transition-all space-y-4"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#71C9CE]/15 text-[#CBF1F5] uppercase">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-violet-50 text-violet-700 uppercase">
                       {collab.type || 'Joint Research'}
                     </span>
-                    <h3 className="text-base font-bold text-[#E3FDFD] mt-2">{collab.title}</h3>
-                    <p className="text-xs text-[#A6E3E9] mt-0.5">{collab.department || 'Computer Science'}</p>
+                    <h3 className="text-base font-bold text-slate-900 mt-2">{collab.title}</h3>
+                    <p className="text-xs text-slate-500 mt-0.5">{collab.department || 'Computer Science'}</p>
                   </div>
-                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-semibold border border-emerald-500/30">
+                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200">
                     {collab.status || 'Active Call'}
                   </span>
                 </div>
 
-                <p className="text-xs text-[#CBF1F5]/80 line-clamp-3 leading-relaxed">
+                <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">
                   {collab.objectives || 'Collaborative research partnership focusing on cutting-edge enterprise applications.'}
                 </p>
 
-                <div className="pt-3 border-t border-[#A6E3E9]/15 flex items-center justify-between text-xs">
-                  <span className="text-[#CBF1F5]/60">Duration: {collab.durationMonths || 12} Months</span>
-                  <span className="text-[#71C9CE] font-semibold">
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                  <span className="text-slate-400">Duration: {collab.durationMonths || 12} Months</span>
+                  <span className="text-violet-700 font-semibold">
                     {collab.interestedCompanies?.length || 1} Corporate Industry Partners Interested
                   </span>
                 </div>
@@ -526,58 +592,58 @@ export default function AcademicianDashboard() {
 
       {/* 4. Submit Research Proposal Modal */}
       {showProposalModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-          <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-[#71C9CE]/50 max-w-lg w-full space-y-5 animate-in fade-in zoom-in-95">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-2xl max-w-lg w-full space-y-5 animate-in fade-in zoom-in-95">
             <div className="flex items-center justify-between">
-              <h3 className="text-xl font-extrabold text-[#E3FDFD]">Submit Joint Research Call</h3>
-              <button onClick={() => setShowProposalModal(false)} className="text-[#CBF1F5] hover:text-white">
+              <h3 className="text-xl font-extrabold text-slate-900">Submit Joint Research Call</h3>
+              <button onClick={() => setShowProposalModal(false)} className="text-slate-400 hover:text-slate-700">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <form onSubmit={handleCreateProposal} className="space-y-4 text-xs">
               <div>
-                <label className="block font-semibold text-[#CBF1F5] mb-1">Proposal Title:</label>
+                <label className="block font-semibold text-slate-700 mb-1">Proposal Title:</label>
                 <input
                   type="text"
                   required
                   value={proposalForm.title}
                   onChange={(e) => setProposalForm({ ...proposalForm, title: e.target.value })}
                   placeholder="e.g., Scalable AI for Healthcare Defect Detection"
-                  className="w-full bg-[#0e242b] border border-[#71C9CE]/30 rounded-xl p-2.5 text-[#E3FDFD] focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 focus:outline-none focus:border-violet-600 focus:bg-white"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-semibold text-[#CBF1F5] mb-1">Discipline / Dept:</label>
+                  <label className="block font-semibold text-slate-700 mb-1">Discipline / Dept:</label>
                   <input
                     type="text"
                     value={proposalForm.department}
                     onChange={(e) => setProposalForm({ ...proposalForm, department: e.target.value })}
-                    className="w-full bg-[#0e242b] border border-[#71C9CE]/30 rounded-xl p-2.5 text-[#E3FDFD]"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 focus:outline-none focus:border-violet-600 focus:bg-white"
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold text-[#CBF1F5] mb-1">Duration (Months):</label>
+                  <label className="block font-semibold text-slate-700 mb-1">Duration (Months):</label>
                   <input
                     type="number"
                     value={proposalForm.durationMonths}
                     onChange={(e) => setProposalForm({ ...proposalForm, durationMonths: Number(e.target.value) })}
-                    className="w-full bg-[#0e242b] border border-[#71C9CE]/30 rounded-xl p-2.5 text-[#E3FDFD]"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 focus:outline-none focus:border-violet-600 focus:bg-white"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block font-semibold text-[#CBF1F5] mb-1">Research Objectives & Industry Scope:</label>
+                <label className="block font-semibold text-slate-700 mb-1">Research Objectives & Industry Scope:</label>
                 <textarea
                   rows={3}
                   required
                   value={proposalForm.objectives}
                   onChange={(e) => setProposalForm({ ...proposalForm, objectives: e.target.value })}
                   placeholder="Explain research goals, lab equipment available, and desired industry co-investigator input..."
-                  className="w-full bg-[#0e242b] border border-[#71C9CE]/30 rounded-xl p-2.5 text-[#E3FDFD]"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-900 focus:outline-none focus:border-violet-600 focus:bg-white"
                 ></textarea>
               </div>
 
@@ -585,7 +651,7 @@ export default function AcademicianDashboard() {
                 <button
                   type="button"
                   onClick={() => setShowProposalModal(false)}
-                  className="px-4 py-2 rounded-xl text-[#CBF1F5] hover:bg-[#0e242b]"
+                  className="px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-100"
                 >
                   Cancel
                 </button>

@@ -103,7 +103,7 @@ export default function StudentDashboard() {
   if (loading) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-[#71C9CE] border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-8 h-8 border-4 border-violet-600 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -121,31 +121,31 @@ export default function StudentDashboard() {
   ).length;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 bg-slate-50">
       {/* 1. Welcome Banner */}
-      <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-[#71C9CE]/30 relative overflow-hidden">
-        <div className="absolute -right-10 -bottom-10 w-60 h-60 bg-[#71C9CE]/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm relative overflow-hidden">
+        <div className="absolute -right-10 -bottom-10 w-60 h-60 bg-violet-100/50 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#71C9CE]/15 text-[#CBF1F5] border border-[#A6E3E9]/30">
+              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-violet-50 text-violet-700 border border-violet-200">
                 Student Enterprise Portal
               </span>
               {profile ? (
-                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
-                  <CheckCircle2 className="w-3 h-3" /> {profile.readinessLevel}
+                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
+                  <CheckCircle2 className="w-3 h-3 text-emerald-600" /> {profile.readinessLevel}
                 </span>
               ) : (
-                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
                   Assessment Pending
                 </span>
               )}
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#E3FDFD]">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
               Welcome back, {user?.name || 'Student'} 👋
             </h1>
-            <p className="text-[#CBF1F5]/70 text-sm mt-1 max-w-xl">
+            <p className="text-slate-500 text-sm mt-1 max-w-xl">
               {user?.instituteName || 'College of Engineering'} • {user?.degree || 'B.Tech Computer Science'}
             </p>
           </div>
@@ -153,17 +153,17 @@ export default function StudentDashboard() {
           <div className="flex flex-wrap items-center gap-3">
             <Link
               to="/student/assessment"
-              className="flex items-center gap-2 btn-brand-primary text-xs sm:text-sm font-bold px-5 py-2.5 rounded-xl shadow-lg transition-all hover:scale-105"
+              className="flex items-center gap-2 btn-brand-primary text-xs sm:text-sm font-bold px-5 py-2.5 rounded-xl shadow-md transition-all hover:scale-105"
             >
               <Award className="w-4 h-4" />
               <span>{profile ? 'Retake Competency Test' : 'Take Skill Assessment'}</span>
             </Link>
 
             <Link
-              to="/vault"
-              className="flex items-center gap-2 glass-panel hover:bg-[#122d36] text-[#CBF1F5] text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-xl border border-[#A6E3E9]/30 transition-all"
+              to="/student/vault"
+              className="flex items-center gap-2 btn-brand-secondary text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-xl transition-all"
             >
-              <Lock className="w-4 h-4 text-[#71C9CE]" />
+              <Lock className="w-4 h-4 text-violet-600" />
               <span>DigiLocker Vault</span>
             </Link>
           </div>
@@ -172,63 +172,63 @@ export default function StudentDashboard() {
 
       {/* 2. Stat Overview Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        <div className="glass-panel p-5 rounded-2xl border border-[#A6E3E9]/15">
-          <div className="flex items-center justify-between text-[#CBF1F5]/70 mb-2">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="flex items-center justify-between text-slate-500 mb-2">
             <span className="text-xs font-medium">Readiness Index</span>
-            <TrendingUp className="w-4 h-4 text-[#71C9CE]" />
+            <TrendingUp className="w-4 h-4 text-violet-600" />
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-extrabold text-[#E3FDFD]">
+            <span className="text-2xl sm:text-3xl font-extrabold text-slate-900">
               {profile ? `${profile.overallScore}%` : 'N/A'}
             </span>
-            <span className="text-xs text-[#A6E3E9] font-semibold">{profile?.readinessLevel || 'Pending'}</span>
+            <span className="text-xs text-emerald-600 font-semibold">{profile?.readinessLevel || 'Pending'}</span>
           </div>
         </div>
 
-        <div className="glass-panel p-5 rounded-2xl border border-[#A6E3E9]/15">
-          <div className="flex items-center justify-between text-[#CBF1F5]/70 mb-2">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="flex items-center justify-between text-slate-500 mb-2">
             <span className="text-xs font-medium">Assessed Skills</span>
-            <Layers className="w-4 h-4 text-[#A6E3E9]" />
+            <Layers className="w-4 h-4 text-indigo-600" />
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-extrabold text-[#E3FDFD]">
+            <span className="text-2xl sm:text-3xl font-extrabold text-slate-900">
               {profile?.skillScores?.length || 0}
             </span>
-            <span className="text-xs text-[#CBF1F5]/60">Competencies</span>
+            <span className="text-xs text-slate-500">Competencies</span>
           </div>
         </div>
 
-        <div className="glass-panel p-5 rounded-2xl border border-[#A6E3E9]/15">
-          <div className="flex items-center justify-between text-[#CBF1F5]/70 mb-2">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="flex items-center justify-between text-slate-500 mb-2">
             <span className="text-xs font-medium">Active Applications</span>
-            <Briefcase className="w-4 h-4 text-[#71C9CE]" />
+            <Briefcase className="w-4 h-4 text-purple-600" />
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-extrabold text-[#E3FDFD]">{applications.length}</span>
-            <span className="text-xs text-[#CBF1F5]/60">Submitted</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-slate-900">{applications.length}</span>
+            <span className="text-xs text-slate-500">Submitted</span>
           </div>
         </div>
 
-        <div className="glass-panel p-5 rounded-2xl border border-[#A6E3E9]/15">
-          <div className="flex items-center justify-between text-[#CBF1F5]/70 mb-2">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="flex items-center justify-between text-slate-500 mb-2">
             <span className="text-xs font-medium">Shortlisted</span>
-            <Sparkles className="w-4 h-4 text-[#A6E3E9]" />
+            <Sparkles className="w-4 h-4 text-amber-500" />
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-extrabold text-[#71C9CE]">{shortlistedCount}</span>
-            <span className="text-xs text-[#CBF1F5]/70 font-medium">Opportunities</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-violet-600">{shortlistedCount}</span>
+            <span className="text-xs text-slate-500 font-medium">Opportunities</span>
           </div>
         </div>
       </div>
 
       {/* 3. Tab Navigation Bar */}
-      <div className="flex items-center gap-2 border-b border-[#71C9CE]/20 pb-2">
+      <div className="flex items-center gap-2 border-b border-slate-200 pb-2">
         <button
           onClick={() => setActiveTab('profile')}
           className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all ${
             activeTab === 'profile'
-              ? 'bg-[#71C9CE] text-[#061519] shadow-md shadow-[#71C9CE]/20'
-              : 'text-[#CBF1F5] hover:bg-[#0e242b]'
+              ? 'bg-violet-600 text-white shadow-xs'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
           <Layers className="w-4 h-4" />
@@ -239,8 +239,8 @@ export default function StudentDashboard() {
           onClick={() => setActiveTab('portfolio')}
           className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all ${
             activeTab === 'portfolio'
-              ? 'bg-[#71C9CE] text-[#061519] shadow-md shadow-[#71C9CE]/20'
-              : 'text-[#CBF1F5] hover:bg-[#0e242b]'
+              ? 'bg-violet-600 text-white shadow-xs'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
           <ShieldCheck className="w-4 h-4" />
@@ -251,8 +251,8 @@ export default function StudentDashboard() {
           onClick={() => setActiveTab('feed')}
           className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all ${
             activeTab === 'feed'
-              ? 'bg-[#71C9CE] text-[#061519] shadow-md shadow-[#71C9CE]/20'
-              : 'text-[#CBF1F5] hover:bg-[#0e242b]'
+              ? 'bg-violet-600 text-white shadow-xs'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
           <Briefcase className="w-4 h-4" />
@@ -264,18 +264,18 @@ export default function StudentDashboard() {
       {activeTab === 'profile' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left Col: Skill Radar & Strengths */}
-          <div className="lg:col-span-7 glass-panel p-6 rounded-3xl border border-[#A6E3E9]/20 space-y-6">
-            <div className="flex items-center justify-between border-b border-[#A6E3E9]/15 pb-4">
+          <div className="lg:col-span-7 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <div>
-                <h2 className="text-lg font-bold text-[#E3FDFD] flex items-center gap-2">
-                  <Layers className="w-5 h-5 text-[#71C9CE]" />
+                <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                  <Layers className="w-5 h-5 text-violet-600" />
                   <span>Skill Competency Profile</span>
                 </h2>
-                <p className="text-xs text-[#CBF1F5]/70 mt-0.5">
-                  Domain: <strong className="text-[#E3FDFD]">{profile?.domain || 'Full Stack Web Development'}</strong>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Domain: <strong className="text-slate-800">{profile?.domain || 'Full Stack Web Development'}</strong>
                 </p>
               </div>
-              <Link to="/student/profile" className="text-xs text-[#71C9CE] hover:text-[#A6E3E9] hover:underline flex items-center gap-1">
+              <Link to="/student/profile" className="text-xs text-violet-600 hover:text-violet-800 font-semibold flex items-center gap-1">
                 Full Details <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
@@ -284,22 +284,22 @@ export default function StudentDashboard() {
               <div className="h-[300px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <RadarChart data={radarData}>
-                    <PolarGrid stroke="#1a424e" />
-                    <PolarAngleAxis dataKey="skill" stroke="#A6E3E9" tick={{ fill: '#CBF1F5', fontSize: 12 }} />
-                    <PolarRadiusAxis angle={30} domain={[0, 100]} stroke="#173843" />
-                    <Radar name="Student Score" dataKey="score" stroke="#71C9CE" fill="#71C9CE" fillOpacity={0.4} />
-                    <Radar name="Industry Benchmark" dataKey="benchmark" stroke="#A6E3E9" fill="#A6E3E9" fillOpacity={0.15} />
+                    <PolarGrid stroke="#e2e8f0" />
+                    <PolarAngleAxis dataKey="skill" stroke="#64748b" tick={{ fill: '#334155', fontSize: 12, fontWeight: 600 }} />
+                    <PolarRadiusAxis angle={30} domain={[0, 100]} stroke="#cbd5e1" />
+                    <Radar name="Student Score" dataKey="score" stroke="#7c3aed" fill="#7c3aed" fillOpacity={0.4} />
+                    <Radar name="Industry Benchmark" dataKey="benchmark" stroke="#94a3b8" fill="#94a3b8" fillOpacity={0.15} />
                     <Tooltip
-                      contentStyle={{ backgroundColor: '#0e242b', borderColor: '#71C9CE', borderRadius: '8px', fontSize: '12px', color: '#E3FDFD' }}
+                      contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e2e8f0', borderRadius: '12px', fontSize: '12px', color: '#0f172a', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
                     />
                   </RadarChart>
                 </ResponsiveContainer>
               </div>
             ) : (
               <div className="text-center py-12 px-4 space-y-3">
-                <Award className="w-12 h-12 text-[#71C9CE]/40 mx-auto" />
-                <p className="text-sm text-[#E3FDFD] font-semibold">No skill assessment taken yet</p>
-                <p className="text-xs text-[#CBF1F5]/70 max-w-sm mx-auto">
+                <Award className="w-12 h-12 text-slate-300 mx-auto" />
+                <p className="text-sm text-slate-900 font-semibold">No skill assessment taken yet</p>
+                <p className="text-xs text-slate-500 max-w-sm mx-auto">
                   Take the quick 5-minute assessment to map your competencies and calculate matching scores.
                 </p>
                 <Link
@@ -313,17 +313,17 @@ export default function StudentDashboard() {
 
             {/* Strengths Chips */}
             {profile?.strengths?.length > 0 && (
-              <div className="pt-2 border-t border-[#A6E3E9]/15">
-                <span className="text-xs font-semibold text-[#CBF1F5]/70 uppercase tracking-wider block mb-2">
+              <div className="pt-2 border-t border-slate-100">
+                <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-2">
                   Verified Technical Strengths:
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {profile.strengths.map((str) => (
                     <span
                       key={str}
-                      className="flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-[#71C9CE]/15 text-[#CBF1F5] border border-[#71C9CE]/30"
+                      className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200"
                     >
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#71C9CE]" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                       <span>{str}</span>
                     </span>
                   ))}
@@ -333,16 +333,16 @@ export default function StudentDashboard() {
           </div>
 
           {/* Right Col: Identified Gaps & Remedial Action */}
-          <div className="lg:col-span-5 glass-panel p-6 rounded-3xl border border-[#A6E3E9]/20 space-y-4">
-            <div className="flex items-center justify-between border-b border-[#A6E3E9]/15 pb-4">
+          <div className="lg:col-span-5 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <div>
-                <h2 className="text-lg font-bold text-[#E3FDFD] flex items-center gap-2">
-                  <AlertTriangle className="w-5 h-5 text-amber-400" />
+                <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                  <AlertTriangle className="w-5 h-5 text-amber-500" />
                   <span>Identified Skill Gaps</span>
                 </h2>
-                <p className="text-xs text-[#CBF1F5]/70 mt-0.5">Recommended remedial learning paths</p>
+                <p className="text-xs text-slate-500 mt-0.5">Recommended remedial learning paths</p>
               </div>
-              <span className="text-xs font-mono text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/30">
+              <span className="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
                 {profile?.gaps?.length || 0} Gaps
               </span>
             </div>
@@ -352,17 +352,17 @@ export default function StudentDashboard() {
                 {profile.gaps.map((gap) => (
                   <div
                     key={gap.skill}
-                    className="p-3.5 rounded-xl bg-[#081418]/80 border border-[#A6E3E9]/15 hover:border-[#71C9CE]/40 transition-all space-y-2"
+                    className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-violet-300 transition-all space-y-2"
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <span className="text-xs font-bold text-[#E3FDFD]">{gap.skill}</span>
-                        <p className="text-[11px] text-[#CBF1F5]/70 mt-0.5">
-                          Current: <strong className="text-rose-400">{gap.currentScore}%</strong> • Target:{' '}
-                          <strong className="text-[#71C9CE]">{gap.benchmarkScore}%</strong>
+                        <span className="text-xs font-bold text-slate-900">{gap.skill}</span>
+                        <p className="text-[11px] text-slate-500 mt-0.5">
+                          Current: <strong className="text-rose-600">{gap.currentScore}%</strong> • Target:{' '}
+                          <strong className="text-violet-600">{gap.benchmarkScore}%</strong>
                         </p>
                       </div>
-                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-rose-500/10 text-rose-300 border border-rose-500/20">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-200">
                         -{gap.gapPercentage}% Gap
                       </span>
                     </div>
@@ -372,23 +372,23 @@ export default function StudentDashboard() {
                         href={gap.learningResourceUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-2.5 flex items-center justify-between gap-2 p-2 rounded-lg bg-[#0e242b] hover:bg-[#122d36] border border-[#71C9CE]/20 text-[#CBF1F5] text-xs transition-colors group"
+                        className="mt-2 flex items-center justify-between gap-2 p-2 rounded-xl bg-white hover:bg-violet-50 border border-slate-200 text-slate-700 hover:text-violet-700 text-xs transition-colors group shadow-xs"
                       >
                         <div className="flex items-center gap-1.5 truncate">
-                          <BookOpen className="w-3.5 h-3.5 text-[#71C9CE] shrink-0" />
-                          <span className="truncate">{gap.resourceTitle || 'Curated NPTEL / Coursera Course'}</span>
+                          <BookOpen className="w-3.5 h-3.5 text-violet-600 shrink-0" />
+                          <span className="truncate font-medium">{gap.resourceTitle || 'Curated Course Roadmap'}</span>
                         </div>
-                        <ExternalLink className="w-3.5 h-3.5 text-[#71C9CE] group-hover:text-[#E3FDFD] shrink-0" />
+                        <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-violet-600 shrink-0" />
                       </a>
                     )}
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="text-center py-10 text-[#CBF1F5]/70 space-y-2">
-                <CheckCircle2 className="w-10 h-10 text-[#71C9CE] mx-auto" />
-                <p className="text-sm font-semibold text-[#E3FDFD]">No Critical Skill Gaps!</p>
-                <p className="text-xs text-[#CBF1F5]/60">Your competencies meet current industry benchmarks.</p>
+              <div className="text-center py-10 text-slate-500 space-y-2">
+                <CheckCircle2 className="w-10 h-10 text-emerald-500 mx-auto" />
+                <p className="text-sm font-semibold text-slate-900">No Critical Skill Gaps!</p>
+                <p className="text-xs text-slate-500">Your competencies meet current industry benchmarks.</p>
               </div>
             )}
           </div>
@@ -398,19 +398,19 @@ export default function StudentDashboard() {
       {/* TAB 2: Digital Portfolio & Verified Credentials */}
       {activeTab === 'portfolio' && (
         <div className="space-y-6">
-          <div className="glass-panel p-6 rounded-3xl border border-[#71C9CE]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <ShieldCheck className="w-5 h-5 text-[#71C9CE]" />
-                <h2 className="text-lg font-bold text-[#E3FDFD]">Digital Portfolio & Verified Vault</h2>
+                <ShieldCheck className="w-5 h-5 text-violet-600" />
+                <h2 className="text-lg font-bold text-slate-900">Digital Portfolio & Verified Vault</h2>
               </div>
-              <p className="text-xs text-[#CBF1F5]/70">
+              <p className="text-xs text-slate-500">
                 Credentials synced directly with DigiLocker NAD, NPTEL, and University Academic Records.
               </p>
             </div>
 
             <Link
-              to="/vault"
+              to="/student/vault"
               className="btn-brand-primary px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 shrink-0 self-start sm:self-auto"
             >
               <UploadCloud className="w-4 h-4" />
@@ -422,38 +422,38 @@ export default function StudentDashboard() {
             {documents.map((doc) => (
               <div
                 key={doc._id}
-                className="glass-panel p-5 rounded-2xl border border-[#A6E3E9]/20 hover:border-[#71C9CE]/40 transition-all space-y-4"
+                className="bg-white p-5 rounded-2xl border border-slate-200 hover:border-violet-300 shadow-sm hover:shadow-md transition-all space-y-4"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-10 h-10 rounded-xl bg-[#71C9CE]/15 text-[#71C9CE] flex items-center justify-center border border-[#71C9CE]/30">
+                    <div className="w-10 h-10 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center border border-violet-200">
                       <FileText className="w-5 h-5" />
                     </div>
                     <div>
-                      <h3 className="text-sm font-bold text-[#E3FDFD] line-clamp-1">{doc.title}</h3>
-                      <span className="text-[11px] text-[#A6E3E9] uppercase font-semibold">{doc.category}</span>
+                      <h3 className="text-sm font-bold text-slate-900 line-clamp-1">{doc.title}</h3>
+                      <span className="text-[11px] text-violet-700 font-semibold uppercase">{doc.category}</span>
                     </div>
                   </div>
 
                   {doc.isVerified && (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
-                      <CheckCircle2 className="w-3 h-3" /> Verified
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Verified
                     </span>
                   )}
                 </div>
 
-                <div className="text-xs text-[#CBF1F5]/70 space-y-1">
-                  <p>Issuer: <strong className="text-[#E3FDFD]">{doc.issuingAuthority || 'University / Provider'}</strong></p>
-                  <p>Sync Engine: <strong className="text-[#A6E3E9]">{doc.verificationSource || 'DigiLocker NAD'}</strong></p>
+                <div className="text-xs text-slate-600 space-y-1">
+                  <p>Issuer: <strong className="text-slate-800">{doc.issuingAuthority || 'University / Provider'}</strong></p>
+                  <p>Sync Engine: <strong className="text-violet-700">{doc.verificationSource || 'DigiLocker NAD'}</strong></p>
                 </div>
 
-                <div className="pt-3 border-t border-[#A6E3E9]/15 flex items-center justify-between text-xs">
-                  <span className="text-[#CBF1F5]/60 text-[11px]">Attached to ATS applications</span>
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                  <span className="text-slate-400 text-[11px]">Attached to ATS applications</span>
                   <a
                     href={doc.fileUrl || '#'}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-[#71C9CE] hover:text-[#E3FDFD] font-semibold flex items-center gap-1"
+                    className="text-violet-600 hover:text-violet-800 font-semibold flex items-center gap-1"
                   >
                     View Document <ExternalLink className="w-3 h-3" />
                   </a>
@@ -467,17 +467,17 @@ export default function StudentDashboard() {
       {/* TAB 3: Personalized Opportunity Feed */}
       {activeTab === 'feed' && (
         <div className="space-y-6">
-          <div className="glass-panel p-6 rounded-3xl border border-[#71C9CE]/30 flex items-center justify-between">
+          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-bold text-[#E3FDFD] flex items-center gap-2">
-                <Briefcase className="w-5 h-5 text-[#71C9CE]" />
+              <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                <Briefcase className="w-5 h-5 text-violet-600" />
                 <span>Personalized Opportunity Feed</span>
               </h2>
-              <p className="text-xs text-[#CBF1F5]/70 mt-0.5">
+              <p className="text-xs text-slate-500 mt-0.5">
                 Automatically ranked by your assessed skill match percentage
               </p>
             </div>
-            <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#71C9CE]/15 text-[#CBF1F5]">
+            <span className="text-xs font-bold px-3 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200">
               {postings.length} Live Openings
             </span>
           </div>
@@ -486,19 +486,19 @@ export default function StudentDashboard() {
             {postings.map((post) => (
               <div
                 key={post._id}
-                className="glass-panel p-5 rounded-2xl border border-[#A6E3E9]/20 hover:border-[#71C9CE]/40 transition-all flex flex-col justify-between space-y-4"
+                className="bg-white p-5 rounded-2xl border border-slate-200 hover:border-violet-300 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-4"
               >
                 <div>
                   <div className="flex items-start justify-between gap-2 mb-2">
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded bg-[#71C9CE]/15 text-[#CBF1F5] border border-[#71C9CE]/30 uppercase">
+                    <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 uppercase">
                       {post.type}
                     </span>
                     <MatchBadge percent={post.matchPercent || 88} size="sm" />
                   </div>
 
-                  <h3 className="text-base font-bold text-[#E3FDFD] line-clamp-1">{post.title}</h3>
-                  <p className="text-xs text-[#A6E3E9] font-medium mt-0.5">{post.companyName}</p>
-                  <p className="text-xs text-[#CBF1F5]/70 mt-2 line-clamp-2">{post.description}</p>
+                  <h3 className="text-base font-bold text-slate-900 line-clamp-1">{post.title}</h3>
+                  <p className="text-xs text-violet-600 font-semibold mt-0.5">{post.companyName}</p>
+                  <p className="text-xs text-slate-500 mt-2 line-clamp-2">{post.description}</p>
                 </div>
 
                 <div>
@@ -506,18 +506,18 @@ export default function StudentDashboard() {
                     {post.requiredSkills?.map((skill) => (
                       <span
                         key={skill}
-                        className="text-[10px] px-2 py-0.5 rounded bg-[#122d36] text-[#CBF1F5] border border-[#A6E3E9]/20"
+                        className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-slate-100 text-slate-700 border border-slate-200"
                       >
                         {skill}
                       </span>
                     ))}
                   </div>
 
-                  <div className="flex items-center justify-between pt-3 border-t border-[#A6E3E9]/15 text-xs">
-                    <span className="text-[#CBF1F5]/70 font-mono font-semibold">{post.stipend || 'Competitive'}</span>
+                  <div className="flex items-center justify-between pt-3 border-t border-slate-100 text-xs">
+                    <span className="text-slate-800 font-mono font-bold">{post.stipend || 'Competitive'}</span>
                     <button
                       onClick={() => setSelectedPost(post)}
-                      className="px-4 py-1.5 btn-brand-primary rounded-xl text-xs font-bold transition-transform hover:scale-105"
+                      className="px-4 py-1.5 btn-brand-primary rounded-xl text-xs font-bold"
                     >
                       Apply Now →
                     </button>
@@ -531,31 +531,31 @@ export default function StudentDashboard() {
 
       {/* 4. Application Modal Overlay */}
       {selectedPost && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-          <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-[#71C9CE]/50 max-w-lg w-full space-y-5 animate-in fade-in zoom-in-95">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-2xl max-w-lg w-full space-y-5 animate-in fade-in zoom-in-95">
             <div className="flex items-start justify-between">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-[#71C9CE]">Apply to Opening</span>
-                <h3 className="text-xl font-extrabold text-[#E3FDFD]">{selectedPost.title}</h3>
-                <p className="text-xs text-[#A6E3E9] mt-0.5">{selectedPost.companyName}</p>
+                <span className="text-xs font-bold uppercase tracking-wider text-violet-600">Apply to Opening</span>
+                <h3 className="text-xl font-extrabold text-slate-900">{selectedPost.title}</h3>
+                <p className="text-xs text-slate-500 mt-0.5">{selectedPost.companyName}</p>
               </div>
               <MatchBadge percent={selectedPost.matchPercent || 88} size="md" />
             </div>
 
-            <div className="p-3.5 rounded-xl bg-[#081418]/90 border border-[#71C9CE]/20 space-y-2 text-xs text-[#CBF1F5]/80">
+            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 text-xs text-slate-600">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#71C9CE]" />
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                 <span>Verified Digital Portfolio & Skill Radar will be automatically shared with recruiter.</span>
               </div>
               <div className="flex items-center gap-2">
-                <Lock className="w-4 h-4 text-[#71C9CE]" />
+                <Lock className="w-4 h-4 text-violet-600" />
                 <span>DigiLocker credential hash attached to submission.</span>
               </div>
             </div>
 
             <form onSubmit={handleApply} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-[#CBF1F5] mb-1.5">
+                <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                   Candidate Note / Statement of Interest:
                 </label>
                 <textarea
@@ -563,12 +563,12 @@ export default function StudentDashboard() {
                   value={coverNote}
                   onChange={(e) => setCoverNote(e.target.value)}
                   placeholder="Explain your relevant project experience and why you are a great fit..."
-                  className="w-full bg-[#0e242b] border border-[#71C9CE]/30 rounded-xl p-3 text-xs text-[#E3FDFD] placeholder-[#CBF1F5]/50 focus:outline-none focus:border-[#71C9CE]"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-600 focus:bg-white"
                 ></textarea>
               </div>
 
               {applySuccess && (
-                <div className="p-3 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-semibold">
+                <div className="p-3 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold">
                   {applySuccess}
                 </div>
               )}
@@ -577,7 +577,7 @@ export default function StudentDashboard() {
                 <button
                   type="button"
                   onClick={() => setSelectedPost(null)}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#CBF1F5] hover:bg-[#0e242b]"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100"
                 >
                   Cancel
                 </button>

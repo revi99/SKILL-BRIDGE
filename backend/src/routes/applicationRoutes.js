@@ -78,6 +78,8 @@ router.get('/my', protect, authorize('student'), async (req, res) => {
   }
 });
 
+const Document = require('../models/Document');
+
 // @route   GET /api/applications/posting/:postingId
 // @desc    Get applicants for a specific posting, sorted by Match % (descending)
 // @access  Private (Industry)
@@ -96,13 +98,19 @@ router.get('/posting/:postingId', protect, authorize('industry'), async (req, re
       .populate('studentId', 'name email instituteName department degree graduationYear bio')
       .sort({ matchPercent: -1, createdAt: -1 });
 
-    // Also attach the student's full skill profile for recruiter deep-dive
+    // Also attach the student's full skill profile and uploaded vault documents for recruiter deep-dive
     const enriched = await Promise.all(
       applications.map(async (app) => {
-        const studentProfile = await SkillProfile.findOne({ userId: app.studentId._id });
+        const studentUserId = app.studentId?._id;
+        const [studentProfile, studentDocs] = await Promise.all([
+          studentUserId ? SkillProfile.findOne({ userId: studentUserId }) : null,
+          studentUserId ? Document.find({ userId: studentUserId }).sort({ createdAt: -1 }) : [],
+        ]);
+
         return {
           ...app.toObject(),
           skillProfile: studentProfile,
+          documents: studentDocs || [],
         };
       })
     );
