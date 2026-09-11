@@ -170,6 +170,10 @@ router.get('/cohort-students', async (req, res) => {
     const cohortWithProfiles = await Promise.all(
       students.map(async (st) => {
         const profile = await SkillProfile.findOne({ userId: st._id });
+        const totalDocs = await Document.countDocuments({ userId: st._id });
+        const pendingDocs = await Document.countDocuments({ userId: st._id, verificationStatus: 'Pending Verification' });
+        const verifiedDocs = await Document.countDocuments({ userId: st._id, verificationStatus: { $regex: 'Verified' } });
+
         return {
           _id: st._id,
           name: st.name,
@@ -183,6 +187,11 @@ router.get('/cohort-students', async (req, res) => {
           readinessLevel: profile ? profile.readinessLevel : 'Assessment Pending',
           strengths: profile ? profile.strengths : [],
           gaps: profile ? profile.gaps.map((g) => g.skill) : [],
+          docStats: {
+            total: totalDocs,
+            pending: pendingDocs,
+            verified: verifiedDocs,
+          },
         };
       })
     );

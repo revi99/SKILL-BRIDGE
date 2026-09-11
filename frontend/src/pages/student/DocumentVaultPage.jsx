@@ -371,18 +371,21 @@ Verified by:          SkillBridge Distributed Identity & Trust Network
                     Credential ID: <strong className="text-slate-900">{doc.credentialId}</strong>
                   </p>
                 )}
+
+                {doc.verifiedBy && (
+                  <p className="text-[11px] text-emerald-700 font-semibold mt-2 bg-emerald-50/80 p-2 rounded-xl border border-emerald-200 flex items-center gap-1.5">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>Certified by: <strong>{doc.verifiedBy}</strong></span>
+                  </p>
+                )}
               </div>
 
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
                 {doc.verificationStatus === 'Pending Verification' ? (
-                  <button
-                    onClick={() => handleVerify(doc._id)}
-                    disabled={verifyingId === doc._id}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition-colors border border-emerald-200 font-bold text-xs"
-                  >
-                    <ShieldCheck className="w-3.5 h-3.5" />
-                    <span>{verifyingId === doc._id ? 'Verifying...' : 'Verify via DigiLocker'}</span>
-                  </button>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-amber-50 text-amber-800 border border-amber-200 font-semibold text-xs">
+                    <Clock className="w-3.5 h-3.5 text-amber-600" />
+                    <span>Awaiting Dean Verification</span>
+                  </span>
                 ) : (
                   <span className="text-slate-400 font-mono text-[11px]">
                     Hash: {doc.verificationHash?.substring(0, 14)}...

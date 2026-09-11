@@ -47,6 +47,13 @@ const documentSchema = new mongoose.Schema(
       enum: ['Verified (DigiLocker)', 'Verified (Institution)', 'Verified (Industry Partner)', 'Pending Verification', 'Unverified'],
       default: 'Pending Verification',
     },
+    verifiedBy: {
+      type: String,
+      default: '',
+    },
+    verifiedAt: {
+      type: Date,
+    },
     verificationHash: {
       type: String,
       default: () => '0x' + Math.random().toString(16).substr(2, 32),
