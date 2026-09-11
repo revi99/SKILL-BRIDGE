@@ -8,6 +8,38 @@ const Document = require('../models/Document');
 const LiveProject = require('../models/LiveProject');
 const { skillBenchmarks } = require('../data/benchmarkData');
 
+// @route   GET /api/analytics/platform-stats
+// @desc    Get live platform counts from MongoDB for the landing hero
+// @access  Public
+router.get('/platform-stats', async (req, res) => {
+  try {
+    const activeInternships = await Posting.countDocuments({ status: 'Active' });
+    const verifiedPortfolios = await Document.countDocuments({ verificationStatus: { $regex: 'Verified' } });
+    const corporateMentors = await User.countDocuments({ role: 'industry' });
+    const profiles = await SkillProfile.find();
+    
+    let avgScore = 0;
+    if (profiles.length > 0) {
+      const sum = profiles.reduce((acc, curr) => acc + (curr.overallScore || 0), 0);
+      avgScore = (sum / profiles.length).toFixed(1);
+    } else {
+      avgScore = '85.0';
+    }
+
+    return res.json({
+      success: true,
+      stats: {
+        activeInternships,
+        verifiedPortfolios,
+        corporateMentors,
+        avgMatchScore: `${avgScore}%`,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
+
 // @route   GET /api/analytics/academic-gap-overview
 // @desc    Get aggregate skill gaps and cohort analytics for academician dashboard
 // @access  Public / Authenticated

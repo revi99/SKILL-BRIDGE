@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import api from '../api/client';
 import {
   Sparkles,
   ArrowRight,
@@ -34,6 +35,33 @@ export default function LandingPage() {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDomain, setSelectedDomain] = useState('all');
+  const [platformStats, setPlatformStats] = useState({
+    activeInternships: 3,
+    verifiedPortfolios: 4,
+    corporateMentors: 2,
+    avgMatchScore: '78.5%',
+    loading: true,
+  });
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await api.get('/analytics/platform-stats');
+        if (res.data?.success && res.data?.stats) {
+          setPlatformStats({
+            activeInternships: res.data.stats.activeInternships,
+            verifiedPortfolios: res.data.stats.verifiedPortfolios,
+            corporateMentors: res.data.stats.corporateMentors,
+            avgMatchScore: res.data.stats.avgMatchScore,
+            loading: false,
+          });
+        }
+      } catch (err) {
+        console.error('Failed to fetch platform stats:', err);
+      }
+    };
+    fetchStats();
+  }, []);
 
   const popularTags = [
     'React.js',
@@ -148,24 +176,28 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Live Counter Stats Bar */}
+          {/* Live Counter Stats Bar (Real-Time Database Records) */}
           <div className="mt-14 max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm text-center">
               <div className="flex items-center justify-center gap-1.5 text-xs text-slate-500 mb-1 font-medium">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>Active Internships</span>
+                <span>Active Openings</span>
               </div>
-              <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">2,450+</div>
-              <span className="text-[11px] text-violet-600 font-semibold">Tier-1 & GCC Openings</span>
+              <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                {platformStats.activeInternships}
+              </div>
+              <span className="text-[11px] text-violet-600 font-semibold">Live Industry Postings</span>
             </div>
 
             <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm text-center">
               <div className="flex items-center justify-center gap-1.5 text-xs text-slate-500 mb-1 font-medium">
                 <ShieldCheck className="w-3.5 h-3.5 text-indigo-600" />
-                <span>Verified Portfolios</span>
+                <span>Verified Credentials</span>
               </div>
-              <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">18,900+</div>
-              <span className="text-[11px] text-emerald-600 font-semibold">DigiLocker Verified</span>
+              <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                {platformStats.verifiedPortfolios}
+              </div>
+              <span className="text-[11px] text-emerald-600 font-semibold">DigiLocker & Certs</span>
             </div>
 
             <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm text-center">
@@ -173,17 +205,21 @@ export default function LandingPage() {
                 <Users className="w-3.5 h-3.5 text-purple-600" />
                 <span>Corporate Mentors</span>
               </div>
-              <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">780+</div>
-              <span className="text-[11px] text-violet-600 font-semibold">Senior Tech Leaders</span>
+              <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                {platformStats.corporateMentors}
+              </div>
+              <span className="text-[11px] text-violet-600 font-semibold">Registered Leaders</span>
             </div>
 
             <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm text-center">
               <div className="flex items-center justify-center gap-1.5 text-xs text-slate-500 mb-1 font-medium">
                 <LineChart className="w-3.5 h-3.5 text-violet-600" />
-                <span>Avg Match Score</span>
+                <span>Cohort Avg Match</span>
               </div>
-              <div className="text-2xl sm:text-3xl font-extrabold text-violet-600">96.2%</div>
-              <span className="text-[11px] text-slate-500 font-semibold">Deterministic Accuracy</span>
+              <div className="text-2xl sm:text-3xl font-extrabold text-violet-600">
+                {platformStats.avgMatchScore}
+              </div>
+              <span className="text-[11px] text-slate-500 font-semibold">Live AICTE Engine</span>
             </div>
           </div>
 
