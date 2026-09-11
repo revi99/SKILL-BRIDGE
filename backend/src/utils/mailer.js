@@ -132,7 +132,7 @@ const sendCollaborationEmail = async ({ toEmail, coordinatorName, companyName, r
       </html>
     `;
 
-    const senderAddress = process.env.EMAIL_USER || 'no-reply@skillbridge.edu';
+    const senderAddress = (process.env.EMAIL_USER || 'ravi11teja67@gmail.com').trim();
     const mailOptions = {
       from: `"SkillBridge Collaboration Portal" <${senderAddress}>`,
       to: toEmail,
