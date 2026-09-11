@@ -29,19 +29,20 @@ const getTransporter = () => {
   const pass = (process.env.EMAIL_PASS || 'xwkidehukffiynfw').replace(/\s+/g, '').trim();
 
   if (user && pass) {
-    console.log(`[Mailer] Initializing live Gmail SMTP transport on port 587 with user: ${user}`);
+    console.log(`[Mailer] Initializing live Gmail SMTP transport on port 587 (IPv4) with user: ${user}`);
     transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 587,
       secure: false, // Port 587 uses STARTTLS
       requireTLS: true,
+      family: 4, // Force IPv4 to prevent ENETUNREACH on cloud containers
       auth: {
         user: user,
         pass: pass,
       },
-      connectionTimeout: 8000,
-      greetingTimeout: 8000,
-      socketTimeout: 10000,
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 15000,
     });
     return transporter;
   }
